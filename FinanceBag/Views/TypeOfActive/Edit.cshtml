@@ -1,9 +1,9 @@
-﻿@model FinanceBag.Models.TypeOfActive
+﻿@model TypeOfActive
 
 <form method="post">
 	<div class="border p-3 mt-4">
 		<div class="row pb-2">
-			<h2 class="text-primary">Создать "Тип Актива"</h2>
+			<h2 class="text-primary">Редактировать "Тип Актива"</h2>
 			<hr />
 		</div>
 		@*<div asp-validation-summary="All"></div>*@
@@ -12,7 +12,7 @@
 			<input asp-for="Type" class="form-control" />
 			<span asp-validation-for="Type" class="text-danger"></span>
 		</div>
-		<button type="submit" class="btn btn-primary" style="width:150px">Создать</button>
+		<button type="submit" class="btn btn-primary" style="width:150px">Редактировать</button>
 		<a asp-controller="TypeOfActive" asp-action="Index" class="btn btn-secondary" style="width:150px">
 			Назад
 		</a>

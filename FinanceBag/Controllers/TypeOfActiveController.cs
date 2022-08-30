@@ -40,5 +40,39 @@ namespace FinanceBag.Controllers
             return View(obj);   
         }
 
+        //GET
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var TypeOfAtciveFromDb = await _db.TypeOfActives.FindAsync(id);
+            //var categoryFromDbFirst = _db.Categories.FirstOrDefault(u=>u.Id==id);
+            //var categoryFromDbSingle = _db.Categories.SingleOrDefault(u => u.Id == id);
+
+            if (TypeOfAtciveFromDb == null)
+            {
+                return NotFound();
+            }
+
+            return View(TypeOfAtciveFromDb);
+        }
+
+        //POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(TypeOfActive obj)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.TypeOfActives.Update(obj);
+                await _db.SaveChangesAsync();
+                TempData["success"] = "Category updated successfully";
+                return RedirectToAction("Index");
+            }
+            return View(obj);
+        }
+
     }
 }
