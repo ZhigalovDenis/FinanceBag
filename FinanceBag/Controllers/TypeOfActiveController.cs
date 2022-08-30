@@ -20,10 +20,21 @@ namespace FinanceBag.Controllers
             IEnumerable<TypeOfActive> objTypeOfActiv = await _db.TypeOfActives.ToListAsync(); 
             return   View(objTypeOfActiv);
         }
-
-        public async Task<IActionResult> Create()
+        //GET
+        public IActionResult Create()
         {
             return View();
         }
+
+        //POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(TypeOfActive obj)
+        {
+            _db.TypeOfActives.Add(obj);
+            await _db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
     }
 }
