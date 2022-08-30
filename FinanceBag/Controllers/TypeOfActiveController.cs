@@ -31,9 +31,13 @@ namespace FinanceBag.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(TypeOfActive obj)
         {
-            _db.TypeOfActives.Add(obj);
-            await _db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _db.TypeOfActives.Add(obj);
+                await _db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(obj);   
         }
 
     }
