@@ -74,6 +74,8 @@ namespace FinanceBag.Controllers
             //return View(obj);
         }
 
+
+        //GET
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || id == 0)
@@ -91,6 +93,8 @@ namespace FinanceBag.Controllers
 
             return View(TypeOfAtciveFromDb);
         }
+
+
 
         //POST
         [HttpPost, ActionName("Delete")]
