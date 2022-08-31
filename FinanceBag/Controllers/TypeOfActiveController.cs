@@ -35,7 +35,7 @@ namespace FinanceBag.Controllers
             //{
                 _db.TypeOfActives.Add(obj);
                 await _db.SaveChangesAsync();
-                TempData["success"] = "Category created successfully";
+                TempData["success"] = "Новая запись создана успешно";
                 return RedirectToAction("Index");
             //}
             //return View(obj);   
@@ -69,7 +69,7 @@ namespace FinanceBag.Controllers
             //{
                 _db.TypeOfActives.Update(obj);
                 await _db.SaveChangesAsync();
-                TempData["success"] = "Category updated successfully";
+                TempData["success"] = "Запись отредактирована";
                 return RedirectToAction("Index");
             //}
             //return View(obj);
@@ -110,7 +110,7 @@ namespace FinanceBag.Controllers
 
             _db.TypeOfActives.Remove(obj);
             _db.SaveChanges();
-            TempData["success"] = "Category deleted successfully";
+            TempData["success"] = "Запись удалена";
             return RedirectToAction("Index");
 
         }

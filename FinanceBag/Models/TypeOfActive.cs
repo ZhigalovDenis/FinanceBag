@@ -15,8 +15,8 @@ namespace FinanceBag.Models
         [Key]
         public int TypeOfActive_id { get; set; }
 
-        [Required(ErrorMessage = "Поле <Тип Актива> пустое, заполните!!!")]
-        [DisplayName("Тип Актива")]
+        [Required(ErrorMessage = "Поле <Тип актива> пустое, заполните!!!")]
+        [DisplayName("Тип актива")]
         public string Type { get; set; }
 
 

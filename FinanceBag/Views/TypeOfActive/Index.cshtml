@@ -33,13 +33,13 @@
             @foreach (var obj in Model)
             {
                     <tr>
-                            <td width="auto">
+                            <td width="20%">
                         @obj.TypeOfActive_id
                         </td>
-                            <td width="auto">
+                            <td width="50%">
                         @obj.Type
                         </td>
-                       <td width="auto">
+                       <td width="30%">
                             <div class="w-75 btn-group" role="group">
                                 <a asp-controller="TypeOfActive" asp-action="Edit" asp-route-id="@obj.TypeOfActive_id"
                         class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i>Редактировать</a>

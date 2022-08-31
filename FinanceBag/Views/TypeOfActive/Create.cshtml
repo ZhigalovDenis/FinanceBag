@@ -1,12 +1,11 @@
-﻿@model FinanceBag.Models.TypeOfActive
+﻿@model TypeOfActive
 
 <form method="post">
 	<div class="border p-3 mt-4">
 		<div class="row pb-2">
-			<h2 class="text-primary">Создать "Тип Актива"</h2>
+			<h2 class="text-primary">Создать запись в таблице "Тип Актива"</h2>
 			<hr />
 		</div>
-		@*<div asp-validation-summary="All"></div>*@
 		<div class="mb-3">
 			<label asp-for="Type"></label>
 			<input asp-for="Type" class="form-control" />
