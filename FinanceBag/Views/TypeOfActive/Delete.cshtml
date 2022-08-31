@@ -3,14 +3,14 @@
 <form method="post" asp-action="Delete">
 	<div class="border p-3 mt-4">
 		<div class="row pb-2">
-			<h2 class="text-primary">Уалить запись из таблицы "Тип Актива"</h2>
+			<h2 class="text-primary">Удалить запись из таблицы "Тип Актива"</h2>
 			<hr />
 		</div>
 		@*<div asp-validation-summary="All"></div>*@
 		<div class="mb-3">
 			<label asp-for="Type"></label>
 			<input asp-for="Type" class="form-control" />
-			<span asp-validation-for="Type" class="text-danger"></span>
+@*			<span asp-validation-for="Type" class="text-danger"></span>*@
 		</div>
 		<button type="submit" class="btn btn-primary" style="width:150px">Удалить</button>
 		<a asp-controller="TypeOfActive" asp-action="Index" class="btn btn-secondary" style="width:150px">

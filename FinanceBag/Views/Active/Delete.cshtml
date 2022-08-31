@@ -1,0 +1,37 @@
+﻿@model Active
+
+<form method="post" asp-action="Delete">
+	<div class="border p-3 mt-4">
+		<div class="row pb-2">
+			<h2 class="text-primary">Удалить запись из таблицы "Актив"</h2>
+			<hr />
+		</div>
+		@*<div asp-validation-summary="All"></div>*@
+		<div class="mb-3">
+			<label asp-for="ISIN_id"></label>
+			<input asp-for="ISIN_id" class="form-control" />
+@*			<span asp-validation-for="ISIN_id" class="text-danger"></span>*@
+		</div>
+			<div class="mb-3">
+			<label asp-for="Ticker"></label>
+			<input asp-for="Ticker" class="form-control" />
+@*			<span asp-validation-for="Ticker" class="text-danger"></span>*@
+		</div>
+			<div class="mb-3">
+			<label asp-for="TypeOfActive_id"></label>
+			<input asp-for="TypeOfActive_id" class="form-control" />
+@*			<span asp-validation-for="TypeOfActive_id" class="text-danger"></span>*@
+		</div>
+		<button type="submit" class="btn btn-primary" style="width:150px">Удалить</button>
+		<a asp-controller="Active" asp-action="Index" class="btn btn-secondary" style="width:150px">
+			Назад
+		</a>
+	</div>
+</form>
+
+@section Scripts{
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+}
+
