@@ -74,5 +74,41 @@ namespace FinanceBag.Controllers
             //return View(obj);
         }
 
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var TypeOfAtciveFromDb = await _db.TypeOfActives.FindAsync(id);
+            //var categoryFromDbFirst = _db.Categories.FirstOrDefault(u=>u.Id==id);
+            //var categoryFromDbSingle = _db.Categories.SingleOrDefault(u => u.Id == id);
+
+            if (TypeOfAtciveFromDb == null)
+            {
+                return NotFound();
+            }
+
+            return View(TypeOfAtciveFromDb);
+        }
+
+        //POST
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeletePOST(int? id)
+        {
+            var obj = await _db.TypeOfActives.FindAsync(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            _db.TypeOfActives.Remove(obj);
+            _db.SaveChanges();
+            TempData["success"] = "Category deleted successfully";
+            return RedirectToAction("Index");
+
+        }
+
     }
 }
