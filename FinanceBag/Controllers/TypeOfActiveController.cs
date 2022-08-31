@@ -31,13 +31,13 @@ namespace FinanceBag.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(TypeOfActive obj)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 _db.TypeOfActives.Add(obj);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("Index");
-            }
-            return View(obj);   
+            //}
+            //return View(obj);   
         }
 
         //GET
@@ -64,14 +64,14 @@ namespace FinanceBag.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(TypeOfActive obj)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 _db.TypeOfActives.Update(obj);
                 await _db.SaveChangesAsync();
                 TempData["success"] = "Category updated successfully";
                 return RedirectToAction("Index");
-            }
-            return View(obj);
+            //}
+            //return View(obj);
         }
 
     }
