@@ -35,6 +35,7 @@ namespace FinanceBag.Controllers
             //{
                 _db.TypeOfActives.Add(obj);
                 await _db.SaveChangesAsync();
+                TempData["success"] = "Category created successfully";
                 return RedirectToAction("Index");
             //}
             //return View(obj);   
