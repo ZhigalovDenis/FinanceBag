@@ -3,6 +3,7 @@ using FinanceBag.Data;
 using FinanceBag.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace FinanceBag.Controllers
 {
@@ -31,14 +32,10 @@ namespace FinanceBag.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(TypeOfActive obj)
         {
-            //if (ModelState.IsValid)
-            //{
                 _db.TypeOfActives.Add(obj);
                 await _db.SaveChangesAsync();
                 TempData["success"] = "Новая запись создана успешно";
                 return RedirectToAction("Index");
-            //}
-            //return View(obj);   
         }
 
         //GET
@@ -65,14 +62,10 @@ namespace FinanceBag.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(TypeOfActive obj)
         {
-            //if (ModelState.IsValid)
-            //{
                 _db.TypeOfActives.Update(obj);
                 await _db.SaveChangesAsync();
                 TempData["success"] = "Запись отредактирована";
                 return RedirectToAction("Index");
-            //}
-            //return View(obj);
         }
 
 
