@@ -1,6 +1,7 @@
 ﻿using FinanceBag.Data;
 using FinanceBag.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinanceBag.Controllers
 {
@@ -13,9 +14,9 @@ namespace FinanceBag.Controllers
             _db = db;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<Active> objActiv =  _db.Actives.ToList();
+            IEnumerable<Active> objActiv = await _db.Actives.ToListAsync();
             return View(objActiv);
         }
 
@@ -30,12 +31,28 @@ namespace FinanceBag.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Active obj)
         {
-
-            _db.Actives.Add(obj);
-            await _db.SaveChangesAsync();
-            TempData["success"] = "Новая запись создана успешно";
-            return RedirectToAction("Index");
-
+            byte IsAvilible = 0;
+            IEnumerable<Active> objTypeOfActiv = await _db.Actives.ToListAsync();
+            foreach (var item in objTypeOfActiv)
+            {
+                if (item.ISIN_id == obj.ISIN_id.Trim(' ', '\t'))
+                {
+                    IsAvilible = 1;
+                    break;
+                }
+            }
+            if (IsAvilible == 0)
+            {
+                _db.Actives.Add(obj);
+                await _db.SaveChangesAsync();
+                TempData["success"] = "Новая запись создана успешно";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ModelState.AddModelError("ISIN_id", $"Запись {obj.ISIN_id} уже существет");
+                return View();
+            }
         }
 
         //GET
