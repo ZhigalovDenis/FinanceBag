@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace FinanceBag.Models
 {
-    
+    [Index(nameof(TypeOfActive.Type), IsUnique = true, Name = "Type_Index")]
     public class TypeOfActive
     {
         [Key]
         public int TypeOfActive_id { get; set; }
 
+        
         [Required(ErrorMessage = "Поле <Тип актива> пустое, заполните!!!")]
         [DisplayName("Тип актива")]
         public string Type { get; set; }
-
 
         public  ICollection<Active> Actives { get; set; }
     }
