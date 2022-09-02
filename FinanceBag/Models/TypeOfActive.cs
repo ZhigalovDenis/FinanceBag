@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace FinanceBag.Models
 {
-    [Index(nameof(TypeOfActive.Type), IsUnique = true, Name = "Type_Index")]
     public class TypeOfActive
     {
         [Key]
