@@ -4,6 +4,7 @@ using FinanceBag.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
+using System.Security.Cryptography.X509Certificates;
 
 namespace FinanceBag.Controllers
 {
@@ -32,10 +33,28 @@ namespace FinanceBag.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(TypeOfActive obj)
         {
+            byte IsAvilible = 0;
+            IEnumerable<TypeOfActive> objTypeOfActiv = await _db.TypeOfActives.ToListAsync();
+            foreach (var item in objTypeOfActiv)
+            {
+                if (item.Type == obj.Type.Trim(' ', '\t'))
+                {
+                    IsAvilible = 1;
+                    break;
+                }             
+            }  
+            if(IsAvilible == 0)
+            {
                 _db.TypeOfActives.Add(obj);
                 await _db.SaveChangesAsync();
                 TempData["success"] = "Новая запись создана успешно";
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                ModelState.AddModelError("Type", $"Запись {obj.Type} уже существет");
+                return View();
+            }
         }
 
         //GET
@@ -62,10 +81,28 @@ namespace FinanceBag.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(TypeOfActive obj)
         {
+            byte IsAvilible = 0;
+            IEnumerable<TypeOfActive> objTypeOfActiv = await _db.TypeOfActives.ToListAsync();
+            foreach (var item in objTypeOfActiv)
+            {
+                if (item.Type == obj.Type.Trim(' ', '\t'))
+                {
+                    IsAvilible = 1;
+                    break;
+                }
+            }
+            if (IsAvilible == 0)
+            {
                 _db.TypeOfActives.Update(obj);
                 await _db.SaveChangesAsync();
                 TempData["success"] = "Запись отредактирована";
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                ModelState.AddModelError("Type", $"Запись {obj.Type} уже существет");
+                return View();
+            }
         }
 
 
