@@ -1,13 +1,15 @@
 ﻿namespace FinanceBag.Repositories
 {
-    public interface IRepository<T1, T2> where T1: class
+    public interface IRepository<T>
     {
       
-        Task<IEnumerable<T1>> GetAll();
-        Task<T1> GetById(T2 id);
-        Task<T1> Insert(T1 entity);
-        Task Delete(T2 id);
-        Task Save();
+        Task<IEnumerable<T>> GetAll();
+        Task<T> GetById(T id);
+        Task Create(T entity);
+
+        Task Delete(T entity);
+
+        Task<T> Update(T entity);
     }
 }
 
