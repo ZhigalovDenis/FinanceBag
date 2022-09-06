@@ -1,11 +1,7 @@
 ﻿
-using FinanceBag.Data;
 using FinanceBag.Models;
 using FinanceBag.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
-using System.Security.Cryptography.X509Certificates;
 
 namespace FinanceBag.Controllers
 {
