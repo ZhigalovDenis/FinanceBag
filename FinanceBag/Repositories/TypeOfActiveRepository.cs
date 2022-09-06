@@ -36,12 +36,6 @@ namespace FinanceBag.Repositories
             return entity;
         }
 
-        public async Task<TypeOfActive> Edit(TypeOfActive entity)
-        {
-             _db.TypeOfActives.Update();
-             return entity;
-        }
-
         public async Task Save()
         {
             await _db.SaveChangesAsync();

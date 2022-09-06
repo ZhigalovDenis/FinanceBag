@@ -1,7 +1,6 @@
 ﻿
 using FinanceBag.Data;
 using FinanceBag.Models;
-using FinanceBag.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
@@ -11,19 +10,19 @@ namespace FinanceBag.Controllers
 {
     public class TypeOfActiveController : Controller
     {
-        private readonly IRepository<TypeOfActive, int> _typeOfActiveRepository;
+        private readonly ApplicationDbContext _db;
 
-        public TypeOfActiveController(IRepository<TypeOfActive, int> typeOfActiveRepository)
+        public TypeOfActiveController(ApplicationDbContext db)
         {
-            _typeOfActiveRepository = typeOfActiveRepository;
+            _db = db;
         }
 
         public async Task<IActionResult> Index()
         {
-            IEnumerable<TypeOfActive> objTypeOfActiv = await _typeOfActiveRepository.GetAll(); 
+            IEnumerable<TypeOfActive> objTypeOfActiv = await _db.TypeOfActives.ToListAsync(); 
             return   View(objTypeOfActiv);
         }
-       // GET
+        //GET
         public IActionResult Create()
         {
             return View();
@@ -35,19 +34,19 @@ namespace FinanceBag.Controllers
         public async Task<IActionResult> Create(TypeOfActive obj)
         {
             byte IsAvilible = 0;
-            IEnumerable<TypeOfActive> objTypeOfActiv = await _typeOfActiveRepository.GetAll();
+            IEnumerable<TypeOfActive> objTypeOfActiv = await _db.TypeOfActives.ToListAsync();
             foreach (var item in objTypeOfActiv)
             {
                 if (item.Type == obj.Type.Trim(' ', '\t'))
                 {
                     IsAvilible = 1;
                     break;
-                }
-            }
-            if (IsAvilible == 0)
+                }             
+            }  
+            if(IsAvilible == 0)
             {
-                await _typeOfActiveRepository.Insert(obj);
-                await _typeOfActiveRepository.Save();
+                _db.TypeOfActives.Add(obj);
+                await _db.SaveChangesAsync();
                 TempData["success"] = "Новая запись создана успешно";
                 return RedirectToAction("Index");
             }
@@ -65,7 +64,10 @@ namespace FinanceBag.Controllers
             {
                 return NotFound();
             }
-            var TypeOfAtciveFromDb = await _typeOfActiveRepository.GetById((int)id);
+            var TypeOfAtciveFromDb = await _db.TypeOfActives.FindAsync(id);
+            //var categoryFromDbFirst = _db.Categories.FirstOrDefault(u=>u.Id==id);
+            //var categoryFromDbSingle = _db.Categories.SingleOrDefault(u => u.Id == id);
+
             if (TypeOfAtciveFromDb == null)
             {
                 return NotFound();
@@ -80,7 +82,7 @@ namespace FinanceBag.Controllers
         public async Task<IActionResult> Edit(TypeOfActive obj)
         {
             byte IsAvilible = 0;
-            IEnumerable<TypeOfActive> objTypeOfActiv = await _typeOfActiveRepository.GetAll();
+            IEnumerable<TypeOfActive> objTypeOfActiv = await _db.TypeOfActives.ToListAsync();
             foreach (var item in objTypeOfActiv)
             {
                 if (item.Type == obj.Type.Trim(' ', '\t'))
@@ -91,8 +93,8 @@ namespace FinanceBag.Controllers
             }
             if (IsAvilible == 0)
             {
-                _typeOfActiveRepository.Edit(obj);
-                await _typeOfActiveRepository.Save();
+                _db.TypeOfActives.Update(obj);
+                await _db.SaveChangesAsync();
                 TempData["success"] = "Запись отредактирована";
                 return RedirectToAction("Index");
             }
@@ -111,11 +113,15 @@ namespace FinanceBag.Controllers
             {
                 return NotFound();
             }
-            var TypeOfAtciveFromDb = await _typeOfActiveRepository.GetById((int)id);
+            var TypeOfAtciveFromDb = await _db.TypeOfActives.FindAsync(id);
+            //var categoryFromDbFirst = _db.Categories.FirstOrDefault(u=>u.Id==id);
+            //var categoryFromDbSingle = _db.Categories.SingleOrDefault(u => u.Id == id);
+
             if (TypeOfAtciveFromDb == null)
             {
                 return NotFound();
             }
+
             return View(TypeOfAtciveFromDb);
         }
 
@@ -124,10 +130,15 @@ namespace FinanceBag.Controllers
         //POST
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeletePOST(int id)
+        public async Task<IActionResult> DeletePOST(int? id)
         {
-            await _typeOfActiveRepository.Delete(id);
-            await _typeOfActiveRepository.Save();
+            var obj = await _db.TypeOfActives.FindAsync(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            _db.TypeOfActives.Remove(obj);
+            _db.SaveChanges();
             TempData["success"] = "Запись удалена";
             return RedirectToAction("Index");
         }
