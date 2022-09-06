@@ -6,6 +6,7 @@
         Task<IEnumerable<T1>> GetAll();
         Task<T1> GetById(T2 id);
         Task<T1> Insert(T1 entity);
+        Task<T1> Edit(T1 entity);
         Task Delete(T2 id);
         Task Save();
     }

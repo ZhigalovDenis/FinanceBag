@@ -20,6 +20,12 @@ namespace FinanceBag.Repositories
             }
         }
 
+        public async Task<TypeOfActive> Edit(TypeOfActive entity)
+        {
+            _db.TypeOfActives.Update(entity);
+            return entity;
+        }
+
         public async Task<IEnumerable<TypeOfActive>> GetAll()
         {
             return await _db.TypeOfActives.ToListAsync();
