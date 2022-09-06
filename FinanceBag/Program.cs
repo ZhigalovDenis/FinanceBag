@@ -1,4 +1,6 @@
 using FinanceBag.Data;
+using FinanceBag.Models;
+using FinanceBag.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
+builder.Services.AddScoped<IRepository<TypeOfActive, int>, TypeOfActiveRepository>();
 
 var app = builder.Build();
 
