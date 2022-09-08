@@ -9,21 +9,30 @@ namespace FinanceBag.Controllers
     public class ActiveController : Controller
     {
         private readonly IRepository<Active, string> _activeRepository;
+        private readonly IRepository<TypeOfActive, int> _typeOfActiveRepository;
 
-        public ActiveController(IRepository<Active, string> activeRepository)
+        public ActiveController(IRepository<Active, string> activeRepository, IRepository<TypeOfActive, int> typeOfActiveRepository)
         {
             _activeRepository = activeRepository;
+            _typeOfActiveRepository = typeOfActiveRepository;
         }
 
+        private async void TypeOfActivesList()
+        {
+            IEnumerable<TypeOfActive> objTypeOfActiv = await _typeOfActiveRepository.GetAll();
+            ViewBag.Type = objTypeOfActiv;
+        }
         public async Task<IActionResult> Index()
         {
             IEnumerable<Active> objActiv = await _activeRepository.GetAll();
             return View(objActiv);
         }
 
+
         //GET
         public  IActionResult Create()
         {
+            TypeOfActivesList();
             return View();
         }
 
@@ -59,6 +68,7 @@ namespace FinanceBag.Controllers
         //GET
         public async Task<IActionResult> Edit(string? id)
         {
+            TypeOfActivesList();
             if (id == null)
             {
                 return NotFound();
@@ -85,6 +95,7 @@ namespace FinanceBag.Controllers
         //GET
         public async Task<IActionResult> Delete(string? id)
         {
+            TypeOfActivesList();
             if (id == null)
             {
                 return NotFound();

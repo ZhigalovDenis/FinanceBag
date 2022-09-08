@@ -19,7 +19,7 @@ namespace FinanceBag.Models
         public ICollection<Deal> Deals { get; set; }
 
         [Required(ErrorMessage = "Поле <Первичный ключ из таблицы <Тип Актива>> пустое, заполните!!!")]
-        [DisplayName("Первичный ключ из таблицы <Тип Актива>. 1-Акция, 2-ETF")]
+        [DisplayName("Тип Актива")]
         public int TypeOfActive_id { get; set; }
         [ForeignKey("TypeOfActive_id")]
         public TypeOfActive TypeOfActive { get; set; }

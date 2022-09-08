@@ -11,15 +11,17 @@
 			<input asp-for="ISIN_id" class="form-control" />
 			<span asp-validation-for="ISIN_id" class="text-danger"></span>
 		</div>
-			<div class="mb-3">
+		<div class="mb-3">
 			<label asp-for="Ticker"></label>
 			<input asp-for="Ticker" class="form-control" />
 			<span asp-validation-for="Ticker" class="text-danger"></span>
 		</div>
-			<div class="mb-3">
-			<label asp-for="TypeOfActive"></label>
-			<select asp-for="TypeOfActive.Type" class="form-control" />
-			<span asp-validation-for="TypeOfActive.Type" class="text-danger"></span>
+		<div class="form-group">  
+			<label asp-for="TypeOfActive_id"></label>
+			<div>
+				@Html.DropDownListFor(m => m.TypeOfActive_id, new SelectList(ViewBag.Type, "TypeOfActive_id", "Type"), htmlAttributes: new { @class = "form-control" })
+				@Html.ValidationMessageFor(m => m.TypeOfActive_id)
+			</div>
 		</div>
 		<button type="submit" class="btn btn-primary" style="width:150px">Создать</button>
 		<a asp-controller="Active" asp-action="Index" class="btn btn-secondary" style="width:150px">
