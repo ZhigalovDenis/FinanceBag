@@ -1,6 +1,5 @@
 ﻿
 using FinanceBag.Models;
-using FinanceBag.Models.ViewModel;
 using FinanceBag.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +17,6 @@ namespace FinanceBag.Controllers
         public async Task<IActionResult> Index()
         {
             IEnumerable<TypeOfActive> objTypeOfActiv = await _typeOfActiveRepository.GetAll();
-            TypeOfActiveViewModel f = new TypeOfActiveViewModel();
             return View(objTypeOfActiv);
 
         }

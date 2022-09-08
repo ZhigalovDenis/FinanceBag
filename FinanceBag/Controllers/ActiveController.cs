@@ -1,5 +1,6 @@
 ﻿using FinanceBag.Data;
 using FinanceBag.Models;
+using FinanceBag.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,16 +8,16 @@ namespace FinanceBag.Controllers
 {
     public class ActiveController : Controller
     {
-        private readonly ApplicationDbContext _db;
+        private readonly IRepository<Active, string> _activeRepository;
 
-        public ActiveController(ApplicationDbContext db)
+        public ActiveController(IRepository<Active, string> activeRepository)
         {
-            _db = db;
+            _activeRepository = activeRepository;
         }
 
         public async Task<IActionResult> Index()
         {
-            IEnumerable<Active> objActiv = await _db.Actives.ToListAsync();
+            IEnumerable<Active> objActiv = await _activeRepository.GetAll();
             return View(objActiv);
         }
 
@@ -32,8 +33,8 @@ namespace FinanceBag.Controllers
         public async Task<IActionResult> Create(Active obj)
         {
             byte IsAvilible = 0;
-            IEnumerable<Active> objTypeOfActiv = await _db.Actives.ToListAsync();
-            foreach (var item in objTypeOfActiv)
+            IEnumerable<Active> objActiv = await _activeRepository.GetAll();
+            foreach (var item in objActiv)
             {
                 if (item.ISIN_id == obj.ISIN_id.Trim(' ', '\t'))
                 {
@@ -43,8 +44,8 @@ namespace FinanceBag.Controllers
             }
             if (IsAvilible == 0)
             {
-                _db.Actives.Add(obj);
-                await _db.SaveChangesAsync();
+                await _activeRepository.Insert(obj);
+                await _activeRepository.Save();
                 TempData["success"] = "Новая запись создана успешно";
                 return RedirectToAction("Index");
             }
@@ -58,19 +59,15 @@ namespace FinanceBag.Controllers
         //GET
         public async Task<IActionResult> Edit(string? id)
         {
-            if (id == null /*|| id == 0*/)
+            if (id == null)
             {
                 return NotFound();
             }
-            var AtciveFromDb = await _db.Actives.FindAsync(id);
-            //var categoryFromDbFirst = _db.Categories.FirstOrDefault(u=>u.Id==id);
-            //var categoryFromDbSingle = _db.Categories.SingleOrDefault(u => u.Id == id);
-
+            var AtciveFromDb = await _activeRepository.GetById(id);
             if (AtciveFromDb == null)
             {
                 return NotFound();
             }
-
             return View(AtciveFromDb);
         }
 
@@ -79,27 +76,20 @@ namespace FinanceBag.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Active obj)
         {
-            //if (ModelState.IsValid)
-            //{
-            _db.Actives.Update(obj);
-            await _db.SaveChangesAsync();
+            await _activeRepository.Edit(obj);
+            await _activeRepository.Save();
             TempData["success"] = "Запись отредактирована";
             return RedirectToAction("Index");
-            //}
-            //return View(obj);
         }
 
         //GET
         public async Task<IActionResult> Delete(string? id)
         {
-            if (id == null /*|| id == 0*/)
+            if (id == null)
             {
                 return NotFound();
             }
-            var AtciveFromDb = await _db.Actives.FindAsync(id);
-            //var categoryFromDbFirst = _db.Categories.FirstOrDefault(u=>u.Id==id);
-            //var categoryFromDbSingle = _db.Categories.SingleOrDefault(u => u.Id == id);
-
+            var AtciveFromDb = await _activeRepository.GetById(id);
             if (AtciveFromDb == null)
             {
                 return NotFound();
@@ -114,13 +104,8 @@ namespace FinanceBag.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeletePOST(string? id)
         {
-            var obj = await _db.Actives.FindAsync(id);
-            if (obj == null)
-            {
-                return NotFound();
-            }
-            _db.Actives.Remove(obj);
-            _db.SaveChanges();
+            await _activeRepository.Delete(id);
+            await _activeRepository.Save();
             TempData["success"] = "Запись удалена";
             return RedirectToAction("Index");
         }

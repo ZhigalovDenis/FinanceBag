@@ -11,7 +11,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
+builder.Services.AddScoped<IRepository<Active, string>, ActiveRepository>();
 builder.Services.AddScoped<IRepository<TypeOfActive, int>, TypeOfActiveRepository>();
+
 
 var app = builder.Build();
 
