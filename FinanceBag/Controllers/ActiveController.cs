@@ -22,7 +22,7 @@ namespace FinanceBag.Controllers
         }
 
         //GET
-        public IActionResult Create()
+        public  IActionResult Create()
         {
             return View();
         }

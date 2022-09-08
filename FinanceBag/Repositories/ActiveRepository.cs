@@ -1,6 +1,7 @@
 ﻿using FinanceBag.Data;
 using FinanceBag.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace FinanceBag.Repositories
 
@@ -29,7 +30,9 @@ namespace FinanceBag.Repositories
 
         public async Task<IEnumerable<Active>> GetAll()
         {
-            return await _db.Actives.ToListAsync();
+             //return await _db.Actives.ToListAsync();
+            return await _db.Actives.Include(p => p.TypeOfActive).ToListAsync();
+
         }
 
         public async Task<Active> GetById(string id)
