@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Deal>
+@{
+    ViewData["Title"] = "Index";
+}
+<partial name="_Notification"/>
+<h1>Таблица <Сделка> - @Model.Count() записей</h1>
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-12 text-end">
+            <a asp-controller="Active" asp-action="Create" class="btn btn-primary">
+               <i class="bi bi-plus-circle"></i> &nbsp; Создать Актив
+            </a>
+        </div>
+    </div>
+    <br /><br />
+
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                Первичный ключ
+            </th>
+            <th>
+                ISIN 
+            </th>
+            <th>
+                Дата/Время
+            </th>
+            <th>
+                Кол-во
+            </th>
+            <th>
+                Цена
+            </th>
+            <th>
+                Сумма
+            </th>
+            <th>
+                Действие
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach (var obj in Model)
+            {
+                    <tr>
+                        <td width:auto>
+                        @obj.Deal_id
+                        </td>
+                        <td width:auto>
+                        @obj.ISIN_id
+                        </td>
+                         <td width:auto>
+                        @obj.DT
+                         </td>
+                         <td width:auto>
+                        @obj.Count
+                         </td>
+                         <td width:auto>
+                        @obj.Price
+                         </td>
+                         <td width:auto>
+                        @obj.Sum
+                         </td>
+                       <td width:auto>
+                            <div class="w-75 btn-group" role="group">
+                                <a asp-controller="Active" asp-action="Edit" asp-route-id="@obj.Deal_id"
+                        class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i>Редактировать</a>
+                                        <a asp-controller="Active" asp-action="Delete" asp-route-id="@obj.Deal_id"
+                        class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> Удалить</a>
+                            </div>
+                        </td>
+                    </tr>
+            }
+    </tbody>
+</table>
+</div>

@@ -18,7 +18,7 @@
 		</div>
 		<div class="form-group">  
 			<label asp-for="TypeOfActive_id"></label>
-			<div>
+			<div>		
 				@Html.DropDownListFor(m => m.TypeOfActive_id, new SelectList(ViewBag.Type, "TypeOfActive_id", "Type"), htmlAttributes: new { @class = "form-control" })
 				@Html.ValidationMessageFor(m => m.TypeOfActive_id)
 			</div>
