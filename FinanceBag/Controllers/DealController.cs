@@ -17,54 +17,38 @@ namespace FinanceBag.Controllers
             _dealRepository = dealRepository;
         }
 
-        //private async void TypeOfActivesList()
-        //{
-        //    IEnumerable<TypeOfActive> objTypeOfActiv = await _typeOfActiveRepository.GetAll();
-        //    ViewBag.Type = objTypeOfActiv;
-        //}
+        private async void TypeOfActivesList()
+        {
+            IEnumerable<Active> objActiv = await _activeRepository.GetAll();
+            ViewBag.ISIN_id = objActiv.Select(s => s.ISIN_id);
+        }
         public async Task<IActionResult> Index()
         {
-            IEnumerable<Deal> objActiv = await _dealRepository.GetAll();
-            return View(objActiv);
+            IEnumerable<Deal> objDeal = await _dealRepository.GetAll();
+            return View(objDeal);
         }
 
 
-        ////GET
-        //public  IActionResult Create()
-        //{
-        //    TypeOfActivesList();
-        //    return View();
-        //}
+        //GET
+        public IActionResult Create()
+        {
+            TypeOfActivesList();
+            return View();
+        }
 
-        ////POST
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create(Active obj)
-        //{
-        //    byte IsAvilible = 0;
-        //    IEnumerable<Active> objActiv = await _activeRepository.GetAll();
-        //    foreach (var item in objActiv)
-        //    {
-        //        if (item.ISIN_id == obj.ISIN_id.Trim(' ', '\t'))
-        //        {
-        //            IsAvilible = 1;
-        //            break;
-        //        }
-        //    }
-        //    if (IsAvilible == 0)
-        //    {
-        //        await _activeRepository.Insert(obj);
-        //        await _activeRepository.Save();
-        //        TempData["success"] = "Новая запись создана успешно";
-        //        return RedirectToAction("Index");
-        //    }
-        //    else
-        //    {
-        //        ModelState.AddModelError("ISIN_id", $"Запись {obj.ISIN_id} уже существет");
-        //        TypeOfActivesList();
-        //        return View();
-        //    }
-        //}
+        //POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Deal obj)
+        {
+
+                obj.Sum = obj.Count * obj.Price;
+                await _dealRepository.Insert(obj);
+                await _dealRepository.Save();
+                TempData["success"] = "Новая запись создана успешно";
+                return RedirectToAction("Index");
+
+        }
 
         ////GET
         //public async Task<IActionResult> Edit(string? id)
