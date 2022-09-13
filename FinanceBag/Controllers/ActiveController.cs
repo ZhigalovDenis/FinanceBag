@@ -61,6 +61,7 @@ namespace FinanceBag.Controllers
             else
             {
                 ModelState.AddModelError("ISIN_id", $"Запись {obj.ISIN_id} уже существет");
+                TypeOfActivesList();
                 return View();
             }
         }
