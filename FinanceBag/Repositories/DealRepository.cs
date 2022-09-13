@@ -49,3 +49,4 @@ namespace FinanceBag.Repositories
             await _db.SaveChangesAsync();
         }
     }
+}
