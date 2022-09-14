@@ -1,50 +1,46 @@
-﻿@model FinanceBag.Models.Deal
+﻿@model Deal
 @ViewBag.ISIN_id
 
-<h4>Deal</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="DT" class="control-label"></label>
-                <input asp-for="DT" class="form-control" />
-                <span asp-validation-for="DT" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Count" class="control-label"></label>
-                <input asp-for="Count" class="form-control" />
-                <span asp-validation-for="Count" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-@*            <div class="form-group">
-                <label asp-for="Sum" class="control-label"></label>
-                <input asp-for="Sum" class="form-control" />
-                <span asp-validation-for="Sum" class="text-danger"></span>
-            </div>*@
-            <div class="form-group">
-                <label for="exampleDataList" class="form-label">Datalist example</label>
-                <input asp-for="ISIN_id" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..."/>
-                <datalist id="datalistOptions"/>
-                    @foreach(var item in ViewBag.ISIN_id)
-                    {
-                            <option value="@item"/>
-                    }
-                </datalist>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+<form method="post">
+	<div class="border p-3 mt-4">
+		<div class="row pb-2">
+			<h2 class="text-primary">Создать запись в таблице "Сделка"</h2>
+			<hr />
+		</div>
+		<div class="form-group">
+			<label asp-for="ISIN_id"></label>
+			<input asp-for="ISIN_id" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..."/>
+			<datalist id="datalistOptions"/>
+			@foreach (var item in ViewBag.ISIN_id)
+			{
+						<option value="@item"/>
+			}
+			</datalist>
+		</div>
+		<div class="mb-3">
+			<label asp-for="DT"></label>
+			<input asp-for="DT" class="form-control" />
+			<span asp-validation-for="DT" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Count"></label>
+			<input asp-for="Count" class="form-control" />
+			<span asp-validation-for="Count" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Price"></label>
+			<input asp-for="Price" class="form-control" />
+			<span asp-validation-for="Price" class="text-danger"></span>
+		</div>
+		<button type="submit" class="btn btn-primary" style="width:150px">Создать</button>
+		<a asp-controller="Active" asp-action="Index" class="btn btn-secondary" style="width:150px">
+			Назад
+		</a>
+	</div>
+</form>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
+@section Scripts{
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+	}

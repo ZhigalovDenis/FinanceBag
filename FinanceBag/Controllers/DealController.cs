@@ -17,7 +17,7 @@ namespace FinanceBag.Controllers
             _dealRepository = dealRepository;
         }
 
-        private async void TypeOfActivesList()
+        private async void ActivesList()
         {
             IEnumerable<Active> objActiv = await _activeRepository.GetAll();
             ViewBag.ISIN_id = objActiv.Select(s => s.ISIN_id);
@@ -28,11 +28,10 @@ namespace FinanceBag.Controllers
             return View(objDeal);
         }
 
-
         //GET
         public IActionResult Create()
         {
-            TypeOfActivesList();
+            ActivesList();
             return View();
         }
 
@@ -92,8 +91,6 @@ namespace FinanceBag.Controllers
         //    }
         //    return View(AtciveFromDb);
         //}
-
-
 
         ////POST
         //[HttpPost, ActionName("Delete")]

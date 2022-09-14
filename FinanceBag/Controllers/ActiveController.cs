@@ -28,7 +28,6 @@ namespace FinanceBag.Controllers
             return View(objActiv);
         }
 
-
         //GET
         public  IActionResult Create()
         {
@@ -108,8 +107,6 @@ namespace FinanceBag.Controllers
             }
             return View(AtciveFromDb);
         }
-
-
 
         //POST
         [HttpPost, ActionName("Delete")]
