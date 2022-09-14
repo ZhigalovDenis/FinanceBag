@@ -1,5 +1,10 @@
 ﻿@model Deal
-@ViewBag.ISIN_id
+
+
+@{
+	<label hidden>@ViewBag.ISIN_id </label>
+	
+}
 
 <form method="post">
 	<div class="border p-3 mt-4">
@@ -7,15 +12,16 @@
 			<h2 class="text-primary">Создать запись в таблице "Сделка"</h2>
 			<hr />
 		</div>
-		<div class="form-group">
+		<div class="mb-3">
 			<label asp-for="ISIN_id"></label>
-			<input asp-for="ISIN_id" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..."/>
-			<datalist id="datalistOptions"/>
+			<input asp-for="ISIN_id" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Начните ввод для поиска..."/>
+			<datalist id="datalistOptions">
 			@foreach (var item in ViewBag.ISIN_id)
 			{
 						<option value="@item"/>
 			}
 			</datalist>
+			<span asp-validation-for="ISIN_id" class="text-danger"></span>
 		</div>
 		<div class="mb-3">
 			<label asp-for="DT"></label>
@@ -33,7 +39,7 @@
 			<span asp-validation-for="Price" class="text-danger"></span>
 		</div>
 		<button type="submit" class="btn btn-primary" style="width:150px">Создать</button>
-		<a asp-controller="Active" asp-action="Index" class="btn btn-secondary" style="width:150px">
+		<a asp-controller="Deal" asp-action="Index" class="btn btn-secondary" style="width:150px">
 			Назад
 		</a>
 	</div>
@@ -41,6 +47,6 @@
 
 @section Scripts{
 	@{
-		<partial name="_ValidationScriptsPartial" />
+	<partial name="_ValidationScriptsPartial" />
 	}
 	}
