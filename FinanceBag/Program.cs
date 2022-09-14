@@ -2,6 +2,7 @@ using FinanceBag.Data;
 using FinanceBag.Models;
 using FinanceBag.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,5 +39,11 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+//Для того что бы можно было работать с дробными числами
+    app.UseRequestLocalization();
+    CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
+    CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-US");
+
 
 app.Run();

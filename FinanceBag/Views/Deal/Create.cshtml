@@ -35,7 +35,7 @@
 		</div>
 		<div class="mb-3">
 			<label asp-for="Price"></label>
-			<input asp-for="Price" class="form-control" />
+			<input asp-for="Price" class="form-control"/>
 			<span asp-validation-for="Price" class="text-danger"></span>
 		</div>
 		<button type="submit" class="btn btn-primary" style="width:150px">Создать</button>
@@ -50,3 +50,10 @@
 	<partial name="_ValidationScriptsPartial" />
 	}
 	}
+
+			<configuration>
+	<system.web>
+		<globalization
+       enableClientBasedCulture="true"        
+       culture="en-GB"/>
+	</system.web>
