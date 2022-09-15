@@ -67,7 +67,6 @@ namespace FinanceBag.Controllers
             {
                 return NotFound();
             }
-
             return View(TypeOfAtciveFromDb);
         }
 
@@ -98,8 +97,6 @@ namespace FinanceBag.Controllers
             return View(TypeOfAtciveFromDb);
         }
 
-
-
         //POST
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -110,6 +107,5 @@ namespace FinanceBag.Controllers
             TempData["success"] = "Запись удалена";
             return RedirectToAction("Index");
         }
-
     }
 }

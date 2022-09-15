@@ -40,67 +40,103 @@ namespace FinanceBag.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Deal obj)
         {
-
-                obj.Sum = obj.Count * obj.Price;
-                await _dealRepository.Insert(obj);
-                await _dealRepository.Save();
-                TempData["success"] = "Новая запись создана успешно";
-                return RedirectToAction("Index");
-
+            byte IsAvilible = 0;
+            IEnumerable<Active> objActiv = await _activeRepository.GetAll();
+            foreach (var item in objActiv)
+            {
+                if (item.ISIN_id == obj.ISIN_id.Trim(' ', '\t'))
+                {
+                    IsAvilible = 1;
+                    break;
+                }
+            }
+            if (IsAvilible == 1)
+            {
+            obj.Sum = obj.Count * obj.Price;
+            await _dealRepository.Insert(obj);
+            await _dealRepository.Save();
+            TempData["success"] = "Новая запись создана успешно";
+            return RedirectToAction("Index");
+            }
+            else
+            {
+                ModelState.AddModelError("ISIN_id", $"Запись {obj.ISIN_id} не существует");
+                ActivesList();
+                return View();
+            }
         }
 
-        ////GET
-        //public async Task<IActionResult> Edit(string? id)
-        //{
-        //    TypeOfActivesList();
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    var AtciveFromDb = await _activeRepository.GetById(id);
-        //    if (AtciveFromDb == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(AtciveFromDb);
-        //}
+        //GET
+        public async Task<IActionResult> Edit(int? id)
+        {
+            ActivesList();
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var DealFromDb = await _dealRepository.GetById((int)id);
+            if (DealFromDb == null)
+            {
+                return NotFound();
+            }
+            return View(DealFromDb);
+        }
 
-        ////POST
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(Active obj)
-        //{
-        //    await _activeRepository.Edit(obj);
-        //    await _activeRepository.Save();
-        //    TempData["success"] = "Запись отредактирована";
-        //    return RedirectToAction("Index");
-        //}
+        //POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Deal obj)
+        {
+            byte IsAvilible = 0;
+            IEnumerable<Active> objActiv = await _activeRepository.GetAll();
+            foreach (var item in objActiv)
+            {
+                if (item.ISIN_id == obj.ISIN_id.Trim(' ', '\t'))
+                {
+                    IsAvilible = 1;
+                    break;
+                }
+            }
+            if (IsAvilible == 1)
+            {
+                obj.Sum = obj.Count * obj.Price;
+                await _dealRepository.Edit(obj);
+                await _dealRepository.Save();
+                TempData["success"] = "Запись отредактирована";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ModelState.AddModelError("ISIN_id", $"Запись {obj.ISIN_id} не существует");
+                ActivesList();
+                return View();
+            }
+        }
 
-        ////GET
-        //public async Task<IActionResult> Delete(string? id)
-        //{
-        //    TypeOfActivesList();
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    var AtciveFromDb = await _activeRepository.GetById(id);
-        //    if (AtciveFromDb == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(AtciveFromDb);
-        //}
+        //GET
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var DealFromDb = await _dealRepository.GetById((int)id);
+            if (DealFromDb == null)
+            {
+                return NotFound();
+            }
+            return View(DealFromDb);
+        }
 
-        ////POST
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeletePOST(string? id)
-        //{
-        //    await _activeRepository.Delete(id);
-        //    await _activeRepository.Save();
-        //    TempData["success"] = "Запись удалена";
-        //    return RedirectToAction("Index");
-        //}
+        //POST
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeletePOST(int id)
+        {
+            await _dealRepository.Delete(id);
+            await _dealRepository.Save();
+            TempData["success"] = "Запись удалена";
+            return RedirectToAction("Index");
+        }
     }
 }
