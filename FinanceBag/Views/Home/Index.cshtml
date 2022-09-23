@@ -4,42 +4,48 @@
 }
 <partial name="_Notification"/>
 <h1>Аналитика портфеля</h1>
-<h6>Кол-во записей в таблице : @Model.All.Count()</h6>
-<div class="container p-3">
-    <div class="row pt-4">
-        <div class="col-12 text-end">
-            <a asp-controller="Active" asp-action="Create" class="btn btn-primary">
-               <i class="bi bi-plus-circle"></i> &nbsp; Создать Актив
-            </a>
-        </div>
-    </div>
-    <br /><br />
+<h6>Кол-во унивкальных бумаг : @Model.All.Count()</h6>
+
 
 <table class="table table-bordered table-striped" style="width:100%">
     <thead>
         <tr>
             <th>
-                Первичный ключ - ISIN
+                TypeOfActive_id
             </th>
             <th>
                 Тикер 
             </th>
             <th>
-                Тип актива
+                ISIN
             </th>
             <th>
-                Действие
+                Дата/Время
             </th>
         </tr>
     </thead>
     <tbody>
-@*            @foreach (var obj in )
+@*            @foreach (var obj in Model.All )
             {
                     <tr>
-                        <td width="20%">
-                        @obj
-                        </td>
+                       <td width:auto>
+                       @obj.Actives.TypeOfActive_id
+                       </td>
+                       <td width:auto>
+                       @obj.Actives.Ticker
+                       </td>
+                       <td width:auto>
+                       @obj.ISIN_id
+                       </td>
+                       <td width:auto>
+                       @obj.DT
+                       </td>
+                       <td width:auto>
+                       @obj.Count
+                       </td>
                     </tr>
+
+
             }*@
     </tbody>
 </table>
