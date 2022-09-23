@@ -11,7 +11,7 @@ namespace FinanceBag.Controllers
 {
     public class HomeController : Controller
     {
-        
+
 
         private readonly IRepository<TypeOfActive, int> _typeOfActiveRepository;
         private readonly IRepository<Deal, int> _dealRepository;
@@ -20,7 +20,7 @@ namespace FinanceBag.Controllers
         public HomeController(IRepository<Deal, int> dealRepository, IRepository<TypeOfActive, int> typeOfActiveRepository, ILogger<HomeController> logger)
         {
             _logger = logger;
-            _dealRepository = dealRepository;   
+            _dealRepository = dealRepository;
             _typeOfActiveRepository = typeOfActiveRepository;
         }
 
@@ -29,28 +29,41 @@ namespace FinanceBag.Controllers
         {
             IEnumerable<TypeOfActive> objTypeOfActiv = await _typeOfActiveRepository.GetAll();
 
-            var dic  = new Dictionary<int, string>();    
+            var dic = new Dictionary<int, string>();
             foreach (var item in objTypeOfActiv)
             {
                 dic.Add(item.TypeOfActive_id, item.Type);
             }
 
-             IEnumerable<Deal> objDeal = await _dealRepository.GetAll();
+            IEnumerable<Deal> objDeal = await _dealRepository.GetAll();
 
 
-            
-            var objFiltered  = objDeal.GroupBy(g => g.ISIN_id).Select(s => new
+           
+            var objFiltered = objDeal.GroupBy(g => g.ISIN_id).Select(s => new
             {
                 ISIN = s.Key,
                 Type = s.Select(x => x.Actives.TypeOfActive_id).First(),
-                Tiker = s.Select(x => x.Actives.Ticker).First(),
+                Ticker = s.Select(x => x.Actives.Ticker).First(),
                 Count = s.Sum(x => x.Count),
                 Sum = s.Sum(x => x.Sum),
                 Avg = s.Sum(x => x.Sum) / s.Sum(x => x.Count)
-            }).OrderBy(x => x.Tiker).ToList();
+            }).OrderBy(x => x.Ticker).ToList();
 
+            var objFiltered1 = objFiltered.GroupBy(x => x.Type).Select(s => new
+            {
+                Type = s.Key,
+                Ticker = s.Select(x => x.Ticker).ToList(),
+                ISIM = s.Select(x => x.ISIN).ToList(),
+                Count = s.Select(x => x.Count).ToList(),
+                Sum = s.Select(x => x.Sum).ToList(),
+                Avg = s.Select(x => x.Avg).ToList()
+            }).ToList();
 
+            var allValue = new AllTables();
+            //var finalent = new List<object>();
+            //finalent.AddRange(objFiltered);
 
+            //allValue.final.AddRange(objFiltered);
 
             List<string> Ticker = new List<string>();
             List<string> ISIN = new List<string>();
@@ -59,23 +72,24 @@ namespace FinanceBag.Controllers
             List<decimal> Sum = new List<decimal>();
             List<decimal> Avg = new List<decimal>();
 
-           var val =  dic[1];
+            var val = dic[1];
 
             foreach (var item in objFiltered)
             {
                 Type.Add(dic[item.Type]);
-                Ticker.Add(item.Tiker);
+                Ticker.Add(item.Ticker);
                 ISIN.Add(item.ISIN);
                 Count.Add(item.Count);
                 Sum.Add(item.Sum);
                 Avg.Add(item.Avg);
             }
 
+            allValue.vmType = Type;
+            allValue.vmTicker = Ticker;
+            allValue.vmISIN = ISIN; 
 
-            return View(objFiltered);
-
-
-
+            return View(allValue);
+        }
 
         public IActionResult Privacy()
         {
@@ -88,4 +102,4 @@ namespace FinanceBag.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
-}
+}    

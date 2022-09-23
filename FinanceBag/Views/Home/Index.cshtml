@@ -3,50 +3,113 @@
     ViewData["Title"] = "Index";
 }
 <partial name="_Notification"/>
-<h1>Аналитика портфеля</h1>
-<h6>Кол-во унивкальных бумаг : @Model.All.Count()</h6>
+<h1 align="center">Аналитика портфеля</h1>
+@*<h6>Кол-во унивкальных бумаг : @Model.All.Count()</h6>*@
 
-
-<table class="table table-bordered table-striped" style="width:100%">
+@*<div>
+<table class="table table-bordered table-striped" style="width:auto">
     <thead>
         <tr>
             <th>
-                TypeOfActive_id
-            </th>
-            <th>
-                Тикер 
-            </th>
-            <th>
-                ISIN
-            </th>
-            <th>
-                Дата/Время
+                Тип Актива
             </th>
         </tr>
     </thead>
-    <tbody>
-@*            @foreach (var obj in Model.All )
-            {
-                    <tr>
-                       <td width:auto>
-                       @obj.Actives.TypeOfActive_id
-                       </td>
-                       <td width:auto>
-                       @obj.Actives.Ticker
-                       </td>
-                       <td width:auto>
-                       @obj.ISIN_id
-                       </td>
-                       <td width:auto>
-                       @obj.DT
-                       </td>
-                       <td width:auto>
-                       @obj.Count
-                       </td>
-                    </tr>
-
-
-            }*@
+    <tbody> 
+            @foreach (var item in Model.vmType)
+            {   
+                <tr>
+                    <td>
+                @item
+                    </td>
+                        
+                </tr>
+            }
     </tbody>
 </table>
 </div>
+<div>
+<table class="table table-bordered table-striped" style="width:auto">
+    <thead>
+        <tr>
+            <th>
+                Тикер 
+            </th>
+        </tr>
+    </thead>
+    <tbody> 
+            @foreach (var item in Model.vmType)
+            {   
+                    <tr>
+                        <td>
+                        @item
+                        </td>
+
+                    </tr>
+            }
+    </tbody>
+</table>
+</div>*@
+<table style="width:100%">
+  <tr>
+    <td>
+        <table class="table table-bordered table-striped" style="width:100%" >
+            <thead>
+                <tr>
+                    <th>
+                        Тип Актива
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+               @foreach(var item in Model.vmType)
+               {
+                    <tr>
+                        <td>@item</td>
+                    </tr>
+               }
+           </tbody>
+        </table>
+    </td>
+
+    <td>
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Тикер
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+               @foreach(var item in Model.vmTicker)
+               {
+                    <tr>
+                        <td>@item</td>
+                    </tr>
+               }
+           </tbody>
+        </table>
+    </td>
+
+    <td>
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Тип Актива
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+               @foreach(var item in Model.vmISIN)
+               {
+                    <tr>
+                        <td>@item</td>
+                    </tr>
+               }
+           </tbody>
+        </table>
+    </td>
+  </tr>
+</table>
