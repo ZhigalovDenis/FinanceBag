@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace FinanceBag.Migrations
 {
-    public partial class CreateDbandTables_0 : Migration
+    public partial class CreateDBandTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -30,7 +30,7 @@ namespace FinanceBag.Repositories
 
         public async Task<IEnumerable<Active>> GetAll()
         {
-             //return await _db.Actives.ToListAsync();
+            //return await _db.Actives.ToListAsync();
             return await _db.Actives.Include(p => p.TypeOfActive).OrderBy(o => o.Ticker).ToListAsync();
 
         }

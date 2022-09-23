@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FinanceBag.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220914115812_SetDoubleTypeToDeal")]
-    partial class SetDoubleTypeToDeal
+    [Migration("20220920101117_CreateDBandTables")]
+    partial class CreateDBandTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
