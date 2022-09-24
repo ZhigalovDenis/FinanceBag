@@ -40,6 +40,11 @@ namespace FinanceBag.Repositories
             return await _db.Actives.FindAsync(id);
         }
 
+        public Task<IEnumerable<dynamic>> GetFiltered()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Active> Insert(Active entity)
         {
             await _db.Actives.AddAsync(entity);

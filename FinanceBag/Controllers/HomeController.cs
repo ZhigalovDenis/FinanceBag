@@ -16,7 +16,7 @@ namespace FinanceBag.Controllers
         private readonly IRepository<TypeOfActive, int> _typeOfActiveRepository;
         private readonly IRepository<Deal, int> _dealRepository;
         private readonly ILogger<HomeController> _logger;
-
+        
         public HomeController(IRepository<Deal, int> dealRepository, IRepository<TypeOfActive, int> typeOfActiveRepository, ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -36,6 +36,8 @@ namespace FinanceBag.Controllers
             }
 
             IEnumerable<Deal> objDeal = await _dealRepository.GetAll();
+
+            var ttt = await _dealRepository.GetFiltered();
 
 
            

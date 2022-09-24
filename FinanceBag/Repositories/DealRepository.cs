@@ -48,5 +48,18 @@ namespace FinanceBag.Repositories
         {
             await _db.SaveChangesAsync();
         }
+        public async Task<IEnumerable<dynamic>> GetFiltered()
+        {
+            return await _db.Deals.GroupBy(g => g.ISIN_id).Select(s => new
+            {
+                ISIN = s.Key,
+                Type = s.Select(x => x.Actives.TypeOfActive_id).First(),
+                Ticker = s.Select(x => x.Actives.Ticker).First(),
+                Count = s.Sum(x => x.Count),
+                Sum = s.Sum(x => x.Sum),
+                Avg = s.Sum(x => x.Sum) / s.Sum(x => x.Count)
+            }).OrderBy(x => x.Ticker).ToListAsync();
+        }
+
     }
 }
