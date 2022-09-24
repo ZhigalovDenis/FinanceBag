@@ -15,6 +15,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql
 builder.Services.AddScoped<IRepository<Active, string>, ActiveRepository>();
 builder.Services.AddScoped<IRepository<TypeOfActive, int>, TypeOfActiveRepository>();
 builder.Services.AddScoped<IRepository<Deal, int>, DealRepository>();
+builder.Services.AddScoped<IRepositoryTest, DealRepository>();
 
 
 var app = builder.Build();

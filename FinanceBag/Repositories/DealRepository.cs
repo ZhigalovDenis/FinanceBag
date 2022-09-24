@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinanceBag.Repositories
 {
-    public class DealRepository : IRepository<Deal, int>
+    public class DealRepository : IRepository<Deal, int>, IRepositoryTest
     {
         private readonly ApplicationDbContext _db;
         public DealRepository(ApplicationDbContext db)
@@ -61,5 +61,17 @@ namespace FinanceBag.Repositories
             }).OrderBy(x => x.Ticker).ToListAsync();
         }
 
+        public async Task<IEnumerable<dynamic>> Test()
+        {
+            return await _db.Deals.GroupBy(g => g.ISIN_id).Select(s => new
+            {
+                ISIN = s.Key,
+                Type = s.Select(x => x.Actives.TypeOfActive_id).First(),
+                Ticker = s.Select(x => x.Actives.Ticker).First(),
+                Count = s.Sum(x => x.Count),
+                Sum = s.Sum(x => x.Sum),
+                Avg = s.Sum(x => x.Sum) / s.Sum(x => x.Count)
+            }).OrderBy(x => x.Ticker).ToListAsync();
+        }
     }
 }

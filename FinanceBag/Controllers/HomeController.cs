@@ -16,12 +16,14 @@ namespace FinanceBag.Controllers
         private readonly IRepository<TypeOfActive, int> _typeOfActiveRepository;
         private readonly IRepository<Deal, int> _dealRepository;
         private readonly ILogger<HomeController> _logger;
+        private readonly IRepositoryTest _repositoryTest;
         
-        public HomeController(IRepository<Deal, int> dealRepository, IRepository<TypeOfActive, int> typeOfActiveRepository, ILogger<HomeController> logger)
+        public HomeController(IRepositoryTest repositoryTest, IRepository<Deal, int> dealRepository, IRepository<TypeOfActive, int> typeOfActiveRepository, ILogger<HomeController> logger)
         {
             _logger = logger;
             _dealRepository = dealRepository;
             _typeOfActiveRepository = typeOfActiveRepository;
+            _repositoryTest = repositoryTest;   
         }
 
 
@@ -37,29 +39,31 @@ namespace FinanceBag.Controllers
 
             IEnumerable<Deal> objDeal = await _dealRepository.GetAll();
 
-            var ttt = await _dealRepository.GetFiltered();
+            var objFiltered = await _dealRepository.GetFiltered();
+
+            var rrrr = await _repositoryTest.Test();
 
 
            
-            var objFiltered = objDeal.GroupBy(g => g.ISIN_id).Select(s => new
-            {
-                ISIN = s.Key,
-                Type = s.Select(x => x.Actives.TypeOfActive_id).First(),
-                Ticker = s.Select(x => x.Actives.Ticker).First(),
-                Count = s.Sum(x => x.Count),
-                Sum = s.Sum(x => x.Sum),
-                Avg = s.Sum(x => x.Sum) / s.Sum(x => x.Count)
-            }).OrderBy(x => x.Ticker).ToList();
+            //var objFiltered = objDeal.GroupBy(g => g.ISIN_id).Select(s => new
+            //{
+            //    ISIN = s.Key,
+            //    Type = s.Select(x => x.Actives.TypeOfActive_id).First(),
+            //    Ticker = s.Select(x => x.Actives.Ticker).First(),
+            //    Count = s.Sum(x => x.Count),
+            //    Sum = s.Sum(x => x.Sum),
+            //    Avg = s.Sum(x => x.Sum) / s.Sum(x => x.Count)
+            //}).OrderBy(x => x.Ticker).ToList();
 
-            var objFiltered1 = objFiltered.GroupBy(x => x.Type).Select(s => new
-            {
-                Type = s.Key,
-                Ticker = s.Select(x => x.Ticker).ToList(),
-                ISIM = s.Select(x => x.ISIN).ToList(),
-                Count = s.Select(x => x.Count).ToList(),
-                Sum = s.Select(x => x.Sum).ToList(),
-                Avg = s.Select(x => x.Avg).ToList()
-            }).ToList();
+            //var objFiltered1 = objFiltered.GroupBy(x => x.Type).Select(s => new
+            //{
+            //    Type = s.Key,
+            //    Ticker = s.Select(x => x.Ticker).ToList(),
+            //    ISIM = s.Select(x => x.ISIN).ToList(),
+            //    Count = s.Select(x => x.Count).ToList(),
+            //    Sum = s.Select(x => x.Sum).ToList(),
+            //    Avg = s.Select(x => x.Avg).ToList()
+            //}).ToList();
 
             var allValue = new AllTables();
             //var finalent = new List<object>();
