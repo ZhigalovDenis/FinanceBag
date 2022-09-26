@@ -1,7 +1,9 @@
-﻿namespace FinanceBag.Services
+﻿using FinanceBag.Models;
+
+namespace FinanceBag.Services
 {
-    public interface IRequestHandlerService
+    public interface IRequestHandlerService<T0, T1>
     { 
-        public void ExToVM(IEnumerable<dynamic> data);
+        public T0 ExToVM(IEnumerable<dynamic> data0, IEnumerable<T1> data1);
     }
 }
