@@ -13,17 +13,18 @@ namespace FinanceBag.Controllers
     {
 
 
-        private readonly IRepository<TypeOfActive, int> _typeOfActiveRepository;
-        private readonly IRepository<Deal, int> _dealRepository;
+        private readonly IBaseRepository<TypeOfActive, int> _typeOfActiveRepository;
+        //private readonly IBaseRepository<Deal, int> _dealRepository;
         private readonly ILogger<HomeController> _logger;
-        private readonly IRepositoryTest _repositoryTest;
+        private readonly ISelectRepository _repositorySelect;
         
-        public HomeController(IRepositoryTest repositoryTest, IRepository<Deal, int> dealRepository, IRepository<TypeOfActive, int> typeOfActiveRepository, ILogger<HomeController> logger)
+        public HomeController(ISelectRepository repositorySelect,/* IBaseRepository<Deal, int> dealRepository,*/ 
+            IBaseRepository<TypeOfActive, int> typeOfActiveRepository, ILogger<HomeController> logger)
         {
             _logger = logger;
-            _dealRepository = dealRepository;
+            //_dealRepository = dealRepository;
             _typeOfActiveRepository = typeOfActiveRepository;
-            _repositoryTest = repositoryTest;   
+            _repositorySelect = repositorySelect;   
         }
 
 
@@ -31,17 +32,17 @@ namespace FinanceBag.Controllers
         {
             IEnumerable<TypeOfActive> objTypeOfActiv = await _typeOfActiveRepository.GetAll();
 
-            var dic = new Dictionary<int, string>();
+            var dictionaryDB = new Dictionary<int, string>();
             foreach (var item in objTypeOfActiv)
             {
-                dic.Add(item.TypeOfActive_id, item.Type);
+                dictionaryDB.Add(item.TypeOfActive_id, item.Type);
             }
 
-            IEnumerable<Deal> objDeal = await _dealRepository.GetAll();
+            //IEnumerable<Deal> objDeal = await _dealRepository.GetAll();
 
-            var objFiltered = await _dealRepository.GetFiltered();
+            //var objFiltered = await _dealRepository.GetFiltered();
 
-            var rrrr = await _repositoryTest.Test();
+            var objFiltered = await _repositorySelect.Selected();
 
 
            
@@ -78,11 +79,11 @@ namespace FinanceBag.Controllers
             List<decimal> Sum = new List<decimal>();
             List<decimal> Avg = new List<decimal>();
 
-            var val = dic[1];
+            //var val = dic[1];
 
             foreach (var item in objFiltered)
             {
-                Type.Add(dic[item.Type]);
+                Type.Add(dictionaryDB[item.Type]);
                 Ticker.Add(item.Ticker);
                 ISIN.Add(item.ISIN);
                 Count.Add(item.Count);

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinanceBag.Repositories
 {
-    public class TypeOfActiveRepository : IRepository<TypeOfActive, int>
+    public class TypeOfActiveRepository : IBaseRepository<TypeOfActive, int>
     {
         private readonly ApplicationDbContext _db;
         public TypeOfActiveRepository(ApplicationDbContext db)
@@ -34,11 +34,6 @@ namespace FinanceBag.Repositories
         public async Task<TypeOfActive> GetById(int id)
         {
             return await _db.TypeOfActives.FindAsync(id);
-        }
-
-        public Task<IEnumerable<dynamic>> GetFiltered()
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<TypeOfActive> Insert(TypeOfActive entity)

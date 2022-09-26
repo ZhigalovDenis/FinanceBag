@@ -12,10 +12,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
-builder.Services.AddScoped<IRepository<Active, string>, ActiveRepository>();
-builder.Services.AddScoped<IRepository<TypeOfActive, int>, TypeOfActiveRepository>();
-builder.Services.AddScoped<IRepository<Deal, int>, DealRepository>();
-builder.Services.AddScoped<IRepositoryTest, DealRepository>();
+builder.Services.AddScoped<IBaseRepository<Active, string>, ActiveRepository>();
+builder.Services.AddScoped<IBaseRepository<TypeOfActive, int>, TypeOfActiveRepository>();
+builder.Services.AddScoped<IBaseRepository<Deal, int>, DealRepository>();
+builder.Services.AddScoped<ISelectRepository, DealRepository>();
 
 
 var app = builder.Build();

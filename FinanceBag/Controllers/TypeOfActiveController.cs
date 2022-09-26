@@ -7,9 +7,9 @@ namespace FinanceBag.Controllers
 {
     public class TypeOfActiveController : Controller
     {
-        private readonly IRepository<TypeOfActive, int> _typeOfActiveRepository;
+        private readonly IBaseRepository<TypeOfActive, int> _typeOfActiveRepository;
 
-        public TypeOfActiveController(IRepository<TypeOfActive, int> typeOfActiveRepository)
+        public TypeOfActiveController(IBaseRepository<TypeOfActive, int> typeOfActiveRepository)
         {
             _typeOfActiveRepository = typeOfActiveRepository;
         }

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace FinanceBag.Repositories
 
 {
-    public class ActiveRepository : IRepository<Active, string>
+    public class ActiveRepository : IBaseRepository<Active, string>
     {
         private readonly ApplicationDbContext _db;
         public ActiveRepository(ApplicationDbContext db)
@@ -38,11 +38,6 @@ namespace FinanceBag.Repositories
         public async Task<Active> GetById(string id)
         {
             return await _db.Actives.FindAsync(id);
-        }
-
-        public Task<IEnumerable<dynamic>> GetFiltered()
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<Active> Insert(Active entity)

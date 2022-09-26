@@ -8,10 +8,10 @@ namespace FinanceBag.Controllers
 {
     public class DealController : Controller
     {
-        private readonly IRepository<Active, string> _activeRepository;
-        private readonly IRepository<Deal, int> _dealRepository;
+        private readonly IBaseRepository<Active, string> _activeRepository;
+        private readonly IBaseRepository<Deal, int> _dealRepository;
 
-        public DealController(IRepository<Active, string> activeRepository, IRepository<Deal, int> dealRepository)
+        public DealController(IBaseRepository<Active, string> activeRepository, IBaseRepository<Deal, int> dealRepository)
         {
             _activeRepository = activeRepository;
             _dealRepository = dealRepository;
