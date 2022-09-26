@@ -1,7 +1,9 @@
 using FinanceBag.Data;
 using FinanceBag.Models;
 using FinanceBag.Repositories;
+using FinanceBag.Services;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol.Plugins;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +18,7 @@ builder.Services.AddScoped<IBaseRepository<Active, string>, ActiveRepository>();
 builder.Services.AddScoped<IBaseRepository<TypeOfActive, int>, TypeOfActiveRepository>();
 builder.Services.AddScoped<IBaseRepository<Deal, int>, DealRepository>();
 builder.Services.AddScoped<ISelectRepository, DealRepository>();
+builder.Services.AddTransient<IRequestHandlerService, RequestHandlerService>();
 
 
 var app = builder.Build();
