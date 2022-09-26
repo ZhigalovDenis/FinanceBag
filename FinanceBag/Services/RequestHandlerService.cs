@@ -13,6 +13,13 @@ namespace FinanceBag.Services
         private List<string> Type = new List<string>();
         private List<decimal> Sum = new List<decimal>();
         private List<decimal> Avg = new List<decimal>();
+
+        /// <summary>
+        /// Мотод обработки данных для виртуальной модели
+        /// </summary>
+        /// <param name="data0"></param>
+        /// <param name="data1"></param>
+        /// <returns></returns>
         public AnaliticsViewModel ExToVM(IEnumerable<dynamic> data0, IEnumerable<TypeOfActive> data1)
         {
             
@@ -36,6 +43,9 @@ namespace FinanceBag.Services
             analiticsViewModel.vM_Type = Type;
             analiticsViewModel.vM_Ticker = Ticker;
             analiticsViewModel.vM_ISIN = ISIN;
+            analiticsViewModel.Count = Count;
+            analiticsViewModel.Sum = Sum;
+            analiticsViewModel.Avg = Avg;
 
             return analiticsViewModel;
 

@@ -4,9 +4,7 @@
 }
 <partial name="_Notification"/>
 <h1 align="center">Аналитика портфеля</h1>
-@*<h6>Кол-во унивкальных бумаг : @Model.All.Count()</h6>*@
-
-
+<h6>Кол-во бумаг : @Model.vM_Ticker.Count()</h6>
 
 <table style="width:100%">
   <tr>
@@ -20,7 +18,7 @@
                 </tr>
             </thead>
             <tbody>
-               @foreach(var item in Model.vmType)
+               @foreach(var item in Model.vM_Type)
                {
                     <tr>
                         <td>@item</td>
@@ -40,7 +38,7 @@
                 </tr>
             </thead>
             <tbody>
-               @foreach(var item in Model.vmTicker)
+               @foreach(var item in Model.vM_Ticker)
                {
                     <tr>
                         <td>@item</td>
@@ -55,12 +53,12 @@
             <thead>
                 <tr>
                     <th>
-                        Тип Актива
+                        ISIN
                     </th>
                 </tr>
             </thead>
             <tbody>
-               @foreach(var item in Model.vmISIN)
+               @foreach(var item in Model.vM_ISIN)
                {
                     <tr>
                         <td>@item</td>
@@ -69,5 +67,66 @@
            </tbody>
         </table>
     </td>
+
+    <td>
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Кол-во
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                    @foreach (var item in Model.Count)
+                    {
+                        <tr>
+                            <td>@item</td>
+                        </tr>
+                    }
+           </tbody>
+        </table>
+    </td>
+
+    <td>
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Сумма
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                    @foreach (var item in Model.Sum)
+                    {
+                        <tr>
+                            <td>@item</td>
+                        </tr>
+                    }
+           </tbody>
+        </table>
+    </td>
+
+        <td>
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Ср.цена за акцию
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                    @foreach (var item in Model.Avg)
+                    {
+                        <tr>
+                            <td>@item</td>
+                        </tr>
+                    }
+           </tbody>
+        </table>
+    </td>
+
   </tr>
 </table>
