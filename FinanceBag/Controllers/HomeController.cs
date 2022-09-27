@@ -17,14 +17,16 @@ namespace FinanceBag.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ISelectRepository _repositorySelect;
         private readonly IRequestHandlerService<AnaliticsViewModel, TypeOfActive> _requestHandlerService;
+        private readonly IGetLastPriceService _getLastPriceService;
         
-        public HomeController(ISelectRepository repositorySelect, IRequestHandlerService<AnaliticsViewModel, TypeOfActive> requestHandlerService,
+        public HomeController(IGetLastPriceService getLastPriceService, ISelectRepository repositorySelect, IRequestHandlerService<AnaliticsViewModel, TypeOfActive> requestHandlerService,
             IBaseRepository<TypeOfActive, int> typeOfActiveRepository, ILogger<HomeController> logger)
         {
             _logger = logger;
             _typeOfActiveRepository = typeOfActiveRepository;
             _repositorySelect = repositorySelect;
             _requestHandlerService = requestHandlerService;
+            _getLastPriceService = getLastPriceService;
         }
 
 
