@@ -58,7 +58,8 @@ namespace FinanceBag.Repositories
                 Ticker = s.Select(x => x.Actives.Ticker).First(),
                 Count = s.Sum(x => x.Count),
                 Sum = s.Sum(x => x.Sum),
-                Avg = s.Sum(x => x.Sum) / s.Sum(x => x.Count)
+                Avg = s.Sum(x => x.Sum) / s.Sum(x => x.Count),
+                TradingMode = s.Select(x => x.Actives.TradingMode).First()
             }).OrderBy(x => x.Ticker).ToListAsync();
         }
     }

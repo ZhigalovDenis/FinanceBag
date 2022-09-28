@@ -9,6 +9,7 @@ namespace FinanceBag.Services
 
         private List<string> Ticker = new List<string>();
         private List<string> ISIN = new List<string>();
+        private List<string> TradingMode = new List<string>();
         private List<int> Count = new List<int>();
         private List<string> Type = new List<string>();
         private List<decimal> Sum = new List<decimal>();
@@ -36,6 +37,7 @@ namespace FinanceBag.Services
                 Count.Add(item.Count);
                 Sum.Add(item.Sum);
                 Avg.Add(item.Avg);
+                TradingMode.Add(item.TradingMode);  
             }
 
             AnaliticsViewModel analiticsViewModel = new AnaliticsViewModel();
@@ -43,9 +45,10 @@ namespace FinanceBag.Services
             analiticsViewModel.vM_Type = Type;
             analiticsViewModel.vM_Ticker = Ticker;
             analiticsViewModel.vM_ISIN = ISIN;
-            analiticsViewModel.Count = Count;
-            analiticsViewModel.Sum = Sum;
-            analiticsViewModel.Avg = Avg;
+            analiticsViewModel.vM_Count = Count;
+            analiticsViewModel.vM_Sum = Sum;
+            analiticsViewModel.vM_Avg = Avg;
+            analiticsViewModel.vM_TradingMode = TradingMode;
 
             return analiticsViewModel;
 
