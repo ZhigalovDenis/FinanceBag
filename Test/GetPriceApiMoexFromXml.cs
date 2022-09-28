@@ -1,10 +1,10 @@
 ﻿
+using System.Xml.Linq;
+
 namespace Test
 {
     public class GetPriceApiMoexFromXml
     {
-        private List<string> ListOfString = new List<string>();
-        private readonly char[] CharsToRemove = { '<', ' ', '"', '/', '>', '='};
         decimal Value = 0;
 
         public async Task GetPrice()
@@ -13,26 +13,25 @@ namespace Test
             {
                 string Uri = "https://iss.moex.com/iss/engines/stock/markets/shares/securities/YNDX/?iss.only=marketdata&marketdata.columns=SECID,BOARDID,LAST";
                 string ResponseBody = await Client.GetStringAsync(Uri);
-                ListOfString = ResponseBody.Split('\n').ToList();
-                int PosOfStr = ListOfString.FindIndex(x => x.Contains("TQBR"));
-                string GetStr = ListOfString[PosOfStr];
-                foreach (var c in CharsToRemove)
-                {
-
-                    GetStr = GetStr.Replace(c, ';');
-                    GetStr = GetStr.Replace(";", "");
-                }
-                int StartIndex = GetStr.IndexOf("LAST") + 4;
-                GetStr = GetStr.Substring(StartIndex, GetStr.Length - StartIndex);
-                if(GetStr != "")
+                XDocument Doc = XDocument.Parse(ResponseBody);
+                var HandleDoc = Doc.Element("document").Element("data")
+                                                        .Element("rows")
+                                                        .Elements("row").Select(x => new
+                                                         {
+                                                             BoardID = x.Attribute("BOARDID").Value,
+                                                             Last = x?.Attribute("LAST").Value
+                                                         }).Where(x => x.BoardID == "TQBR").Select(x => x.Last).ToArray();
+                string GetStr = HandleDoc[0];
+                if (GetStr != "")
                 {
                     GetStr = GetStr.Replace('.', ',');
                     Value = Convert.ToDecimal(GetStr);
-                    Console.WriteLine("Результат работы класса GetPriceApiMoexFromString = " + Value);
+                    Console.WriteLine("Результат работы класса GetPriceApiMoexFromXml = " + Value);
                 }
-                Value = Value + 1;
-                Console.WriteLine("Результат работы класса GetPriceApiMoexFromString = нет данных" );
-                
+                else
+                {
+                    Console.WriteLine("Результат работы класса GetPriceApiMoexFromXml = нет данных");
+                }
             }
         }
     }

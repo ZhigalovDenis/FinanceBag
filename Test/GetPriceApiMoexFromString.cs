@@ -30,9 +30,10 @@ namespace Test
                     Value = Convert.ToDecimal(GetStr);
                     Console.WriteLine("Результат работы класса GetPriceApiMoexFromString = " + Value);
                 }
-                Value = Value + 1;
-                Console.WriteLine("Результат работы класса GetPriceApiMoexFromString = нет данных" );
-                
+                else
+                {
+                    Console.WriteLine("Результат работы класса GetPriceApiMoexFromString = нет данных");
+                }          
             }
         }
     }
