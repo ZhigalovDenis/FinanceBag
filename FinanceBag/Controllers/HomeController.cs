@@ -38,7 +38,7 @@ namespace FinanceBag.Controllers
             AnaliticsViewModel analiticsViewModel = new AnaliticsViewModel();
             analiticsViewModel = _requestHandlerService.ExToVM(objFiltered, objTypeOfActiv);
 
-            _getLastPriceService.GetLastPrice();
+            //_getLastPriceService.GetLastPrice();
 
             return View(analiticsViewModel);
         }
