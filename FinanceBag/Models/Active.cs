@@ -19,7 +19,7 @@ namespace FinanceBag.Models
 
         [Required(ErrorMessage = "Поле <Режим торгов> пустое, заполните!!!")]
         [DisplayName("Режим торгов")]
-        public string TrandingMode { get; set; }    
+        public string TradingMode { get; set; }    
         public ICollection<Deal> Deals { get; set; }
 
         [Required(ErrorMessage = "Поле <Первичный ключ из таблицы <Тип Актива>> пустое, заполните!!!")]

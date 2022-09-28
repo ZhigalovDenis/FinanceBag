@@ -24,6 +24,12 @@
 				@Html.ValidationMessageFor(m => m.TypeOfActive_id)
 			</div>
 		</div>
+			<div class="mb-3">
+			<label asp-for="TradingMode"></label>
+			<input asp-for="TradingMode" class="form-control" />
+			<span asp-validation-for="TradingMode" class="text-danger"></span>
+		</div>
+		</div>
 		<button type="submit" class="btn btn-primary" style="width:150px">Применить</button>
 		<a asp-controller="Active" asp-action="Index" class="btn btn-secondary" style="width:150px">
 			Назад
