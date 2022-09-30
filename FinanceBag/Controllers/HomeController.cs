@@ -18,15 +18,19 @@ namespace FinanceBag.Controllers
         private readonly ISelectRepository _repositorySelect;
         private readonly IRequestHandlerService<AnaliticsViewModel, TypeOfActive> _requestHandlerService;
         private readonly IGetLastPriceService<AnaliticsViewModel> _getLastPriceService;
+        private readonly ICalculateService<AnaliticsViewModel> _calculateService;
         
-        public HomeController(IGetLastPriceService<AnaliticsViewModel> getLastPriceService, ISelectRepository repositorySelect, IRequestHandlerService<AnaliticsViewModel, TypeOfActive> requestHandlerService,
-            IBaseRepository<TypeOfActive, int> typeOfActiveRepository, ILogger<HomeController> logger)
+        public HomeController(IGetLastPriceService<AnaliticsViewModel> getLastPriceService, ISelectRepository repositorySelect, 
+                              IRequestHandlerService<AnaliticsViewModel, TypeOfActive> requestHandlerService,
+                              IBaseRepository<TypeOfActive, int> typeOfActiveRepository, ILogger<HomeController> logger,
+                              ICalculateService<AnaliticsViewModel> calculateService)
         {
             _logger = logger;
             _typeOfActiveRepository = typeOfActiveRepository;
             _repositorySelect = repositorySelect;
             _requestHandlerService = requestHandlerService;
             _getLastPriceService = getLastPriceService;
+            _calculateService = calculateService;   
         }
 
 
@@ -38,6 +42,7 @@ namespace FinanceBag.Controllers
             AnaliticsViewModel analiticsViewModel = new AnaliticsViewModel();
             analiticsViewModel = await _requestHandlerService.ExToVM(objFiltered, objTypeOfActiv);
             analiticsViewModel  = await _getLastPriceService.GetLastPrice(analiticsViewModel);
+            analiticsViewModel = await _calculateService.CalculateProfit(analiticsViewModel);
 
             return View(analiticsViewModel);
         }

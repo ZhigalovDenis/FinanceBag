@@ -21,6 +21,7 @@ builder.Services.AddScoped<IBaseRepository<Deal, int>, DealRepository>();
 builder.Services.AddScoped<ISelectRepository, DealRepository>();
 builder.Services.AddTransient<IRequestHandlerService<AnaliticsViewModel, TypeOfActive>, RequestHandlerService>();
 builder.Services.AddTransient<IGetLastPriceService<AnaliticsViewModel>, GetLastPriceService>();
+builder.Services.AddTransient<ICalculateService<AnaliticsViewModel>, CalculateService>();
 
 
 var app = builder.Build();
