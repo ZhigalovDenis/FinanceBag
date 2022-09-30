@@ -113,12 +113,32 @@
             <thead>
                 <tr>
                     <th>
-                        Ср.цена за акцию
+                        Средняя цена за актив
                     </th>
                 </tr>
             </thead>
             <tbody>
                     @foreach (var item in Model.vM_Avg)
+                    {
+                        <tr>
+                            <td>@item</td>
+                        </tr>
+                    }
+           </tbody>
+        </table>
+    </td>
+
+        <td>
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Текущая цена за актив
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                    @foreach (var item in Model.vM_CurrentPrice)
                     {
                         <tr>
                             <td>@item</td>

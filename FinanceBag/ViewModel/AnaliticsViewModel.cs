@@ -12,5 +12,6 @@ namespace FinanceBag.ViewModel
         public List<int> vM_Count { get; set; }
         public List<decimal> vM_Sum { get; set; }
         public List<decimal> vM_Avg { get; set; }
+        public List<decimal> vM_CurrentPrice { get; set; }
     }
 }

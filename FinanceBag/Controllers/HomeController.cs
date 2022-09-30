@@ -17,9 +17,9 @@ namespace FinanceBag.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ISelectRepository _repositorySelect;
         private readonly IRequestHandlerService<AnaliticsViewModel, TypeOfActive> _requestHandlerService;
-        private readonly IGetLastPriceService _getLastPriceService;
+        private readonly IGetLastPriceService<AnaliticsViewModel> _getLastPriceService;
         
-        public HomeController(IGetLastPriceService getLastPriceService, ISelectRepository repositorySelect, IRequestHandlerService<AnaliticsViewModel, TypeOfActive> requestHandlerService,
+        public HomeController(IGetLastPriceService<AnaliticsViewModel> getLastPriceService, ISelectRepository repositorySelect, IRequestHandlerService<AnaliticsViewModel, TypeOfActive> requestHandlerService,
             IBaseRepository<TypeOfActive, int> typeOfActiveRepository, ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -37,8 +37,7 @@ namespace FinanceBag.Controllers
 
             AnaliticsViewModel analiticsViewModel = new AnaliticsViewModel();
             analiticsViewModel = _requestHandlerService.ExToVM(objFiltered, objTypeOfActiv);
-
-            //_getLastPriceService.GetLastPrice();
+            analiticsViewModel  = await _getLastPriceService.GetLastPrice(analiticsViewModel);
 
             return View(analiticsViewModel);
         }

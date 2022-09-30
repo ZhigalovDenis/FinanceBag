@@ -1,7 +1,9 @@
-﻿namespace FinanceBag.Services
+﻿using FinanceBag.ViewModel;
+
+namespace FinanceBag.Services
 {
-    public interface IGetLastPriceService
+    public interface IGetLastPriceService<T>
     {
-        Task GetLastPrice();
+        Task<T> GetLastPrice(T model);
     }
 }

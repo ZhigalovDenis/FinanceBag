@@ -9,6 +9,6 @@ GetPriceApiMoexFromXml getPriceApiMoexFromXml = new GetPriceApiMoexFromXml();
 await getPriceApiMoexFromXml.GetPrice();
 
 
-GetPriceApiMoexFromXmlProd getPriceApiMoexFromStringProd = new GetPriceApiMoexFromXmlProd();
-await getPriceApiMoexFromStringProd.GetPrice();
+GetPriceApiMoexFromXmlProd getPriceApiMoexFromXmlProd = new GetPriceApiMoexFromXmlProd();
+await getPriceApiMoexFromXmlProd.GetPrice();
 
