@@ -10,7 +10,7 @@ namespace Test
         string TradingMode = "TQBR";
         string Tiker = "GAZP";
         List<string> DataBase = new List<string> { "TQBR", "TQBR", "TQTF", "TQTF", "TQIF", 
-                                                   "YNDX", "GAZP", "EQMX", "VTBU", "RU000A0JR2C1" };
+                                                   "YNDX", "GAZP", "EQMX", "EQMX", "RU000A0JR2C1" };
 
         public async Task GetPrice()
         {
