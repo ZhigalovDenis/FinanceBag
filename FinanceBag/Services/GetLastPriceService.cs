@@ -45,7 +45,7 @@ namespace FinanceBag.Services
                     model.vM_CurrentPrice = CurrentPrice;
                 }
 
-                return model;
+                return  model;
             }
         }
     }

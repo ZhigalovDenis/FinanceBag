@@ -36,7 +36,7 @@ namespace FinanceBag.Controllers
             IEnumerable<dynamic> objFiltered = await _repositorySelect.Selected();
 
             AnaliticsViewModel analiticsViewModel = new AnaliticsViewModel();
-            analiticsViewModel = _requestHandlerService.ExToVM(objFiltered, objTypeOfActiv);
+            analiticsViewModel = await _requestHandlerService.ExToVM(objFiltered, objTypeOfActiv);
             analiticsViewModel  = await _getLastPriceService.GetLastPrice(analiticsViewModel);
 
             return View(analiticsViewModel);

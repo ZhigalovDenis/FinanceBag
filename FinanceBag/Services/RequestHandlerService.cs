@@ -21,7 +21,7 @@ namespace FinanceBag.Services
         /// <param name="data0"></param>
         /// <param name="data1"></param>
         /// <returns></returns>
-        public AnaliticsViewModel ExToVM(IEnumerable<dynamic> data0, IEnumerable<TypeOfActive> data1)
+        public async Task<AnaliticsViewModel> ExToVM(IEnumerable<dynamic> data0, IEnumerable<TypeOfActive> data1)
         {
             
             foreach (var item in data1)
@@ -50,7 +50,7 @@ namespace FinanceBag.Services
             analiticsViewModel.vM_Avg = Avg;
             analiticsViewModel.vM_TradingMode = TradingMode;
 
-            return analiticsViewModel;
+            return   analiticsViewModel;
 
         }
     }
