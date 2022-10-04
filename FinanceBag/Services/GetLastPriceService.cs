@@ -31,20 +31,26 @@ namespace FinanceBag.Services
 
                     string ResponseBody = await Client.GetStringAsync(Uri);
                     XDocument Doc = XDocument.Parse(ResponseBody);
-                    string HandleDoc = Doc.Element("document").Element("data")
-                                                            .Element("rows")
-                                                            .Element("row").Attribute("LAST").Value.ToString();
-                    if (HandleDoc != "")
+                    try
                     {
-                        CurrentPrice.Add(Convert.ToDecimal(HandleDoc));
+                        string HandleDoc = Doc.Element("document").Element("data")
+                                        .Element("rows")
+                                        .Element("row").Attribute("LAST").Value.ToString();
+                        if (HandleDoc != "")
+                        {
+                            CurrentPrice.Add(Convert.ToDecimal(HandleDoc));
+                        }
+                        else
+                        {
+                            CurrentPrice.Add(Value);
+                        }
+                        model.vM_CurrentPrice = CurrentPrice;
                     }
-                    else
+                    catch (Exception)
                     {
                         CurrentPrice.Add(Value);
                     }
-                    model.vM_CurrentPrice = CurrentPrice;
                 }
-
                 return  model;
             }
         }

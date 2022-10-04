@@ -10,7 +10,7 @@ namespace Test
         string TradingMode = "TQBR";
         string Tiker = "GAZP";
         List<string> DataBase = new List<string> { "TQBR", "TQBR", "TQTF", "TQTF", "TQIF", 
-                                                   "YNDX", "GAZP", "EQMX", "EQMX", "RU000A0JR2C1" };
+                                                   "YNDX", "GAZP", "EQMX", "VTBR", "RU000A0JR2C1" };
 
         public async Task GetPrice()
         {
@@ -25,7 +25,7 @@ namespace Test
                         "?iss.meta=off&iss.only=marketdata&marketdata.columns=LAST";
                     string ResponseBody = await Client.GetStringAsync(Uri);
                     XDocument Doc = XDocument.Parse(ResponseBody);
-                    string HandleDoc = Doc.Element("document").Element("data")
+                    string? HandleDoc = Doc.Element("document").Element("data")
                                                             .Element("rows")
                                                             .Element("row").Attribute("LAST").Value.ToString();
                     if (HandleDoc != "")

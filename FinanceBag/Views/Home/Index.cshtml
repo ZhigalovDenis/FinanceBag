@@ -6,10 +6,10 @@
 <h1 align="center">Аналитика портфеля</h1>
 <h6>Кол-во бумаг : @Model.vM_Ticker.Count()</h6>
 
-<table style="width:100%">
+<table style="width:auto">
   <tr>
     <td>
-        <table class="table table-bordered table-striped" style="width:100%" >
+        <table class="table table-bordered table-striped" style="width:auto" >
             <thead>
                 <tr>
                     <th>
@@ -29,7 +29,7 @@
     </td>
 
     <td>
-        <table class="table table-bordered table-striped" style="width:100%">
+        <table class="table table-bordered table-striped" style="width:auto">
             <thead>
                 <tr>
                     <th>
@@ -49,7 +49,7 @@
     </td>
 
     <td>
-        <table class="table table-bordered table-striped" style="width:100%">
+        <table class="table table-bordered table-striped" style="width:auto">
             <thead>
                 <tr>
                     <th>
@@ -69,7 +69,7 @@
     </td>
 
     <td>
-        <table class="table table-bordered table-striped" style="width:100%">
+        <table class="table table-bordered table-striped" style="width:auto">
             <thead>
                 <tr>
                     <th>
@@ -89,7 +89,7 @@
     </td>
 
     <td>
-        <table class="table table-bordered table-striped" style="width:100%">
+        <table class="table table-bordered table-striped" style="width:auto">
             <thead>
                 <tr>
                     <th>
@@ -109,7 +109,7 @@
     </td>
 
         <td>
-        <table class="table table-bordered table-striped" style="width:100%">
+        <table class="table table-bordered table-striped" style="width:auto">
             <thead>
                 <tr>
                     <th>
@@ -129,11 +129,11 @@
     </td>
 
         <td>
-        <table class="table table-bordered table-striped" style="width:100%">
+        <table class="table table-bordered table-striped" style="width:auto">
             <thead>
                 <tr>
                     <th>
-                        Текущая цена за актив   
+                        Цена сейчас   
                     </th>
                 </tr>
             </thead>
@@ -143,6 +143,46 @@
                         <tr>
                             <td>@item</td>
                         </tr>
+                    }
+           </tbody>
+        </table>
+    </td>
+
+        <td>
+        <table class="table table-bordered table-striped" style="width:auto">
+            <thead>
+                <tr>
+                    <th>
+                        Прибыль с актива   
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                    @foreach (var item in Model.vM_ProfitOfActive)
+                    {
+                            <tr>
+                                <td>@item</td>
+                            </tr>
+                    }
+           </tbody>
+        </table>
+    </td>
+
+        <td>
+        <table class="table table-bordered table-striped" style="width:auto">
+            <thead>
+                <tr>
+                    <th>
+                        Общая прибыль   
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                    @foreach (var item in Model.vM_ProfitOfAllActive)
+                    {
+                                <tr>
+                                    <td>@item</td>
+                                </tr>
                     }
            </tbody>
         </table>
