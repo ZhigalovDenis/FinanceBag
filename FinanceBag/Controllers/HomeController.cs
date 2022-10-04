@@ -5,7 +5,7 @@ using FinanceBag.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol.Plugins;
 using System.Diagnostics;
-
+using System.Linq;
 
 namespace FinanceBag.Controllers
 {
