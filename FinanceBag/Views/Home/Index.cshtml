@@ -160,9 +160,20 @@
             <tbody>
                     @foreach (var item in Model.vM_ProfitOfActive)
                     {
-                            <tr>
-                                <td>@item</td>
-                            </tr>
+                        string FontColor = "";
+                        if (item > 0)
+                        {
+                            FontColor = "green";
+                        }
+                        else
+                        {
+                            FontColor = "red";
+                        }
+                                    <tr>
+                                        <td>
+                                             <font color="@FontColor">@item</font>                                        
+                                        </td>
+                                    </tr>
                     }
            </tbody>
         </table>
@@ -180,8 +191,19 @@
             <tbody>
                     @foreach (var item in Model.vM_ProfitOfAllActive)
                     {
+                        string FontColor = "";
+                        if (item > 0)
+                        {
+                            FontColor = "green";
+                        }
+                        else
+                        {
+                            FontColor = "red";
+                        }
                                 <tr>
-                                    <td>@item</td>
+                                    <td>
+                                         <font color="@FontColor">@item</font>                                        
+                                    </td>
                                 </tr>
                     }
            </tbody>
