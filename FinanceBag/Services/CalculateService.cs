@@ -18,8 +18,10 @@ namespace FinanceBag.Services
             }
             model.vM_ProfitOfActive = ProfitOfActive;
             model.vM_ProfitOfAllActive =  ProfitOfAllActive;
-
+            //Добавить расчет общей прибыли и процентов
             return  model;  
         }
+
+
     }
 }

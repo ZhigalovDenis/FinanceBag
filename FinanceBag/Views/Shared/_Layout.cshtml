@@ -19,6 +19,18 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
+                <div style="margin-right: 5px;">
+                    <div class="dropdown">
+                        <a class="btn btn-outline-secondary dropdown-toggle"  href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Аналитика
+                        </a>
+                        <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" asp-controller="" asp-action="">Затраты по годам</a></li>
+                        </ul>
+                    </div>
+                </div>
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <div class="dropdown" >
                         <a class="btn btn-outline-secondary dropdown-toggle"  href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -31,6 +43,9 @@
                         </ul>
                     </div>
                 </div>
+
+
+
             </div>
         </nav>
     </header>
@@ -56,3 +71,18 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+Footer
+© 2022 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+FinanceBag/_Layout.cshtml at master · ZhigalovDenis/FinanceBag
