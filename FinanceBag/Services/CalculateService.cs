@@ -8,7 +8,6 @@ namespace FinanceBag.Services
         {
             List<decimal> ProfitOfActive = new List<decimal>();
             List<decimal> ProfitOfAllActive = new List<decimal>();
-
             for (int i = 0; i < model.vM_Count.Count; i++)
             {
                 decimal profitOfActive =   model.vM_CurrentPrice[i] - model.vM_Avg[i];
@@ -18,8 +17,12 @@ namespace FinanceBag.Services
             }
             model.vM_ProfitOfActive = ProfitOfActive;
             model.vM_ProfitOfAllActive =  ProfitOfAllActive;
+
+            model.TotalCosts = model.vM_Sum.Sum();
+            model.ProfitValue = model.TotalCosts -  model.vM_ProfitOfAllActive.Sum(); 
+
             //Добавить расчет общей прибыли и процентов
-            return  model;  
+            return  model;
         }
 
 

@@ -36,7 +36,7 @@ namespace FinanceBag.Services
                 ISIN.Add(item.ISIN);
                 Count.Add(item.Count);
                 Sum.Add(item.Sum);
-                Avg.Add(item.Avg);
+                Avg.Add(Math.Round(item.Avg,2));
                 TradingMode.Add(item.TradingMode);  
             }
 

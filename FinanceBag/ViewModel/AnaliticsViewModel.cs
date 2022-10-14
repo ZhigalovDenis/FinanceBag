@@ -15,5 +15,7 @@ namespace FinanceBag.ViewModel
         public List<decimal> vM_CurrentPrice { get; set; }
         public List<decimal> vM_ProfitOfActive { get; set; }
         public List<decimal> vM_ProfitOfAllActive { get; set; }
+        public decimal TotalCosts { get; set; }
+        public decimal ProfitValue { get; set; }
     }
 }
