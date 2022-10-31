@@ -1,83 +1,22 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FinanceBag.Models;
+using FinanceBag.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinanceBag.Controllers
 {
     public class GroupByMonthController : Controller
     {
-        // GET: GroupByMonthController
-        public ActionResult Index()
-        {
-            return View();
-        }
+        private readonly IBaseRepository<Deal, int> _dealRepository;
 
-        // GET: GroupByMonthController/Details/5
-        public ActionResult Details(int id)
+        public GroupByMonthController(IBaseRepository<Deal, int> dealRepository)
         {
-            return View();
+            _dealRepository = dealRepository;
         }
-
-        // GET: GroupByMonthController/Create
-        public ActionResult Create()
+        public async Task<IActionResult> Index()
         {
-            return View();
-        }
-
-        // POST: GroupByMonthController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: GroupByMonthController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: GroupByMonthController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: GroupByMonthController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: GroupByMonthController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            IEnumerable<Deal> objDeal = await _dealRepository.GetAll();
+            return View(objDeal);
         }
     }
 }
