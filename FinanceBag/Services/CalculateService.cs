@@ -6,8 +6,10 @@ namespace FinanceBag.Services
     {
         public async Task<AnaliticsViewModel> CalculateProfit(AnaliticsViewModel model)
         {
+           
             List<decimal> ProfitOfActive = new List<decimal>();
             List<decimal> ProfitOfAllActive = new List<decimal>();
+
             for (int i = 0; i < model.vM_Count.Count; i++)
             {
                 decimal profitOfActive =   model.vM_CurrentPrice[i] - model.vM_Avg[i];
@@ -18,10 +20,11 @@ namespace FinanceBag.Services
             model.vM_ProfitOfActive = ProfitOfActive;
             model.vM_ProfitOfAllActive =  ProfitOfAllActive;
 
-            model.TotalCosts = model.vM_Sum.Sum();
-            model.ProfitValue = model.TotalCosts -  model.vM_ProfitOfAllActive.Sum(); 
+            model.vM_TotalCosts = model.vM_Sum.Sum();
+            model.vM_ProfitValue = Math.Round(model.vM_ProfitOfAllActive.Sum(),2);
 
-            //Добавить расчет общей прибыли и процентов
+            //Обернуть метод в таску
+
             return  model;
         }
 
