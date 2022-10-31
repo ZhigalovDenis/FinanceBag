@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinanceBag.Repositories
 {
-    public class DealRepository : IBaseRepository<Deal, int>, ISelectRepository
+    public class DealRepository : IBaseRepository<Deal, int>, ISelectRepository, IGroupRepository
     {
         private readonly ApplicationDbContext _db;
         public DealRepository(ApplicationDbContext db)
@@ -28,9 +28,7 @@ namespace FinanceBag.Repositories
 
         public async Task<IEnumerable<Deal>> GetAll()
         {
-            //return await _db.Actives.ToListAsync();
             return await _db.Deals.Include(p => p.Actives).ToListAsync();
-
         }
 
         public async Task<Deal> GetById(int id)
@@ -61,6 +59,12 @@ namespace FinanceBag.Repositories
                 Avg = s.Sum(x => x.Sum) / s.Sum(x => x.Count),
                 TradingMode = s.Select(x => x.Actives.TradingMode).First()
             }).OrderBy(x => x.Ticker).ToListAsync();
+        }
+
+
+        public async Task<IEnumerable<dynamic>> GroupByMonth()
+        {
+            return await _db.Deals.GroupBy(g => g.DT).ToListAsync();
         }
     }
 }

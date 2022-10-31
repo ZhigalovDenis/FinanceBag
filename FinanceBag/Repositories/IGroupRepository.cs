@@ -1,8 +1,8 @@
 ﻿namespace FinanceBag.Repositories
 {
-    public interface IGropupRepository<T> 
+    public interface IGroupRepository
     {
-        Task<IEnumerable<T>> GroupByMonth();
+        Task<IEnumerable<dynamic>> GroupByMonth();
     }
 }
 

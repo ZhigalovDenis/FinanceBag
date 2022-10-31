@@ -7,16 +7,16 @@ namespace FinanceBag.Controllers
 {
     public class GroupByMonthController : Controller
     {
-        private readonly IBaseRepository<Deal, int> _dealRepository;
+        private readonly IGroupRepository _repositoryGroup;
 
-        public GroupByMonthController(IBaseRepository<Deal, int> dealRepository)
+        public GroupByMonthController(IGroupRepository repositoryGroup)
         {
-            _dealRepository = dealRepository;
+            _repositoryGroup = repositoryGroup;
         }
         public async Task<IActionResult> Index()
         {
-            IEnumerable<Deal> objDeal = await _dealRepository.GetAll();
-            return View(objDeal);
+            var objGroupByMonth = await _repositoryGroup.GroupByMonth();
+            return View(objGroupByMonth);
         }
     }
 }
