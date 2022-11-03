@@ -23,35 +23,36 @@ namespace FinanceBag.Services
         /// <returns></returns>
         public async Task<AnaliticsViewModel> ExToVM(IEnumerable<dynamic> data0, IEnumerable<TypeOfActive> data1)
         {
-            
-            foreach (var item in data1)
+            return await Task.Run(() =>
             {
-                dictionaryDB.Add(item.TypeOfActive_id, item.Type);
-            }
+                foreach (var item in data1)
+                {
+                    dictionaryDB.Add(item.TypeOfActive_id, item.Type);
+                }
 
-            foreach (var item in data0)
-            {
-                Type.Add(dictionaryDB[item.Type]);
-                Ticker.Add(item.Ticker);
-                ISIN.Add(item.ISIN);
-                Count.Add(item.Count);
-                Sum.Add(item.Sum);
-                Avg.Add(Math.Round(item.Avg,2));
-                TradingMode.Add(item.TradingMode);  
-            }
+                foreach (var item in data0)
+                {
+                    Type.Add(dictionaryDB[item.Type]);
+                    Ticker.Add(item.Ticker);
+                    ISIN.Add(item.ISIN);
+                    Count.Add(item.Count);
+                    Sum.Add(item.Sum);
+                    Avg.Add(Math.Round(item.Avg, 2));
+                    TradingMode.Add(item.TradingMode);
+                }
 
-            AnaliticsViewModel analiticsViewModel = new AnaliticsViewModel();
+                AnaliticsViewModel analiticsViewModel = new AnaliticsViewModel();
 
-            analiticsViewModel.vM_Type = Type;
-            analiticsViewModel.vM_Ticker = Ticker;
-            analiticsViewModel.vM_ISIN = ISIN;
-            analiticsViewModel.vM_Count = Count;
-            analiticsViewModel.vM_Sum = Sum;
-            analiticsViewModel.vM_Avg = Avg;
-            analiticsViewModel.vM_TradingMode = TradingMode;
+                analiticsViewModel.vM_Type = Type;
+                analiticsViewModel.vM_Ticker = Ticker;
+                analiticsViewModel.vM_ISIN = ISIN;
+                analiticsViewModel.vM_Count = Count;
+                analiticsViewModel.vM_Sum = Sum;
+                analiticsViewModel.vM_Avg = Avg;
+                analiticsViewModel.vM_TradingMode = TradingMode;
 
-            return   analiticsViewModel;
-
+                return analiticsViewModel;
+            });
         }
     }
 }
