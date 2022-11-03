@@ -1,6 +1,7 @@
 ﻿using FinanceBag.Data;
 using FinanceBag.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Xml;
 
 namespace FinanceBag.Repositories
 {
@@ -64,7 +65,15 @@ namespace FinanceBag.Repositories
 
         public async Task<IEnumerable<dynamic>> GroupByMonth()
         {
-            return await _db.Deals.GroupBy(g => g.DT).ToListAsync();
+            return await _db.Deals.GroupBy(x => new
+            {
+                x.DT.Month,
+                x.DT.Year
+            }).Select(x => new
+            {
+                Date_ = x.Key.Month.ToString() + '-'+ x.Key.Year.ToString(),
+                Cost =  x.Sum(x=>x.Sum)
+            }).OrderBy(x => x.Cost).ToListAsync();
         }
     }
 }

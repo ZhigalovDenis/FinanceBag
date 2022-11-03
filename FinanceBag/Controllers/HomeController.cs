@@ -41,7 +41,7 @@ namespace FinanceBag.Controllers
 
             AnaliticsViewModel analiticsViewModel = new AnaliticsViewModel();
             analiticsViewModel = await _requestHandlerService.ExToVM(objFiltered, objTypeOfActiv);
-            analiticsViewModel  = await _getLastPriceService.GetLastPrice(analiticsViewModel);
+            analiticsViewModel = await _getLastPriceService.GetLastPrice(analiticsViewModel);
             analiticsViewModel = await _calculateService.CalculateProfit(analiticsViewModel);
 
             return View(analiticsViewModel);
