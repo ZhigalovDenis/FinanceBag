@@ -2,7 +2,7 @@
 {
     public class GroupByNameViewModel
     {
-        public List<string> Date { get; set; }
-        public List<decimal> Cost { get; set; }
+        public List<string> vM_Date { get; set; }
+        public List<decimal> vM_Cost { get; set; }
     }
 }

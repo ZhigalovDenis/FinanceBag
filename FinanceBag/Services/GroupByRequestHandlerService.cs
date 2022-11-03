@@ -4,7 +4,7 @@ namespace FinanceBag.Services
 {
     public class GroupByRequestHandlerService : IGroupByRequestHandlerService<GroupByNameViewModel>
     {
-        private List<string> Data = new List<string>();
+        private List<string> Date = new List<string>();
         private List<decimal> Cost = new List<decimal>();
 
         /// <summary>
@@ -14,16 +14,20 @@ namespace FinanceBag.Services
         /// <returns></returns>
         public async Task<GroupByNameViewModel> ExportToVM(IEnumerable<dynamic> data)
         {
-            foreach (var item in data)
-            {
-                Data.Add(item.Date);
-                Cost.Add(item.Cost);
-            }
-            GroupByNameViewModel groupByNameViewModel = new GroupByNameViewModel()
-            {
-                Date = data.Select(x => x.),
-            };
-            return  groupByNameViewModel;
+           return await Task.Run(() => 
+           {
+                foreach (var item in data)
+                {
+                    Date.Add(item.Date);
+                    Cost.Add(item.Cost);
+                }
+                GroupByNameViewModel groupByNameViewModel = new GroupByNameViewModel();
+
+                groupByNameViewModel.vM_Date = Date;
+                groupByNameViewModel.vM_Cost = Cost;
+                return groupByNameViewModel;
+            });
+            
         }
     }
 }
