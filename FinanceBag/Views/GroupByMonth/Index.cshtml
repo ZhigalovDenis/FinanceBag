@@ -1,58 +1,52 @@
-﻿@model IEnumerable<Deal>
+﻿@model FinanceBag.ViewModel.GroupByNameViewModel
 @{
     ViewData["Title"] = "Index";
 }
 <partial name="_Notification"/>
-<h3 style="text-align:center">Затраты по месяцам</h3>
-<h6>Кол-во записей в таблице : @Model.Count()</h6>
+<h1 align="center">Сумма затрат по месяцам</h1>
 
-<table class="table table-bordered table-striped" style="width:100%">
-    <thead>
-        <tr>
-            <th>
-                Первичный ключ
-            </th>
-            <th>
-                ISIN 
-            </th>
-            <th>
-                Дата/Время
-            </th>
-            <th>
-                Кол-во
-            </th>
-            <th>
-                Цена
-            </th>
-            <th>
-                Сумма
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-            @foreach (var obj in Model)
-            {
+<h6>Кол-во записей : @Model.vM_Date.Count()</h6>
+
+<table style="width:auto">
+  <tr>
+    <td>
+        <table class="table table-bordered table-striped" style="width:auto" >
+            <thead>
+                <tr>
+                    <th>
+                        Месяц/Год
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+               @foreach(var item in Model.vM_Date)
+               {
                     <tr>
-                        <td width:auto>
-                        @obj.Deal_id
-                        </td>
-                        <td width:auto>
-                        @obj.ISIN_id
-                        </td>
-                         <td width:auto>
-                        @obj.DT
-                         </td>
-                         <td width:auto>
-                        @obj.Count
-                         </td>
-                         <td width:auto>
-                        @obj.Price
-                         </td>
-                         <td width:auto>
-                        @obj.Sum
-                         </td>
+                        <td>@item</td>
                     </tr>
-            }
-    </tbody>
+               }
+           </tbody>
+        </table>
+    </td>
+
+    <td>
+        <table class="table table-bordered table-striped" style="width:auto">
+            <thead>
+                <tr>
+                    <th>
+                        Затраты
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+               @foreach(var item in Model.vM_Cost)
+               {
+                    <tr>
+                        <td>@item</td>
+                    </tr>
+               }
+           </tbody>
+        </table>
+    </td>
+  </tr>
 </table>
-</div>
