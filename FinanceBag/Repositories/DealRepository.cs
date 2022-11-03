@@ -71,7 +71,7 @@ namespace FinanceBag.Repositories
                 x.DT.Year
             }).Select(x => new
             {
-                Date_ = x.Key.Month.ToString() + '-'+ x.Key.Year.ToString(),
+                Date = x.Key.Month.ToString() + '-'+ x.Key.Year.ToString(),
                 Cost =  x.Sum(x=>x.Sum)
             }).OrderBy(x => x.Cost).ToListAsync();
         }
