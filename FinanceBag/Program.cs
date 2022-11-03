@@ -19,7 +19,7 @@ builder.Services.AddScoped<IBaseRepository<Active, string>, ActiveRepository>();
 builder.Services.AddScoped<IBaseRepository<TypeOfActive, int>, TypeOfActiveRepository>();
 builder.Services.AddScoped<IBaseRepository<Deal, int>, DealRepository>();
 builder.Services.AddScoped<ISelectRepository, DealRepository>();
-builder.Services.AddTransient<IRequestHandlerService<AnaliticsViewModel, TypeOfActive>, RequestHandlerService>();
+builder.Services.AddTransient<IAnaliticsRequestHandlerService<AnaliticsViewModel, TypeOfActive>, AnaliticsRequestHandlerService>();
 builder.Services.AddTransient<IGetLastPriceService<AnaliticsViewModel>, GetLastPriceService>();
 builder.Services.AddTransient<ICalculateService<AnaliticsViewModel>, CalculateService>();
 builder.Services.AddScoped<IGroupRepository, DealRepository>();

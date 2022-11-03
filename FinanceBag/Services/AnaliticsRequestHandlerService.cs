@@ -3,7 +3,7 @@ using FinanceBag.ViewModel;
 
 namespace FinanceBag.Services
 {
-    public class RequestHandlerService : IRequestHandlerService<AnaliticsViewModel, TypeOfActive>
+    public class AnaliticsRequestHandlerService : IAnaliticsRequestHandlerService<AnaliticsViewModel, TypeOfActive>
     {
         private Dictionary<int, string> dictionaryDB = new Dictionary<int, string>();
 
