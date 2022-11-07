@@ -2,30 +2,29 @@
 
 namespace FinanceBag.Services
 {
-    public class GroupByRequestHandlerService : IGroupByRequestHandlerService<GroupByNameViewModel>
+    public class GroupByRequestHandlerService : IGroupByRequestHandlerService<List<GroupByMonthViewModel>>
     {
-        private List<string> Date = new List<string>();
-        private List<decimal> Cost = new List<decimal>();
+        private List<GroupByMonthViewModel> listGroupByNameViewModels = new List<GroupByMonthViewModel>();    
 
         /// <summary>
         /// Экспорт данных во ViewModel 
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public async Task<GroupByNameViewModel> ExportToVM(IEnumerable<dynamic> data)
+        public async Task</*GroupByNameViewModel*/List<GroupByMonthViewModel>> ExportToVM(IEnumerable<dynamic> data)
         {
            return await Task.Run(() => 
            {
-                foreach (var item in data)
+               foreach (var item in data)
                 {
-                    Date.Add(item.Date);
-                    Cost.Add(item.Cost);
-                }
-                GroupByNameViewModel groupByNameViewModel = new GroupByNameViewModel();
+                   GroupByMonthViewModel groupByNameViewModel = new GroupByMonthViewModel();
+                   groupByNameViewModel.vM_Date = item.Date;
+                   groupByNameViewModel.vM_Cost = item.Cost;
+                   listGroupByNameViewModels.Add(groupByNameViewModel);
+               }
 
-                groupByNameViewModel.vM_Date = Date;
-                groupByNameViewModel.vM_Cost = Cost;
-                return groupByNameViewModel;
+               return listGroupByNameViewModels;
+
             });
             
         }

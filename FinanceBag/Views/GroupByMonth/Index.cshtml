@@ -1,52 +1,34 @@
-﻿@model FinanceBag.ViewModel.GroupByNameViewModel
+﻿@model IEnumerable<FinanceBag.ViewModel.GroupByMonthViewModel>
 @{
     ViewData["Title"] = "Index";
 }
 <partial name="_Notification"/>
-<h1 align="center">Сумма затрат по месяцам</h1>
+<h4> Общие затраты по месяцам</h4>
+<p></p>
 
-<h6>Кол-во записей : @Model.vM_Date.Count()</h6>
-
-<table style="width:auto">
-  <tr>
-    <td>
-        <table class="table table-bordered table-striped" style="width:auto" >
-            <thead>
-                <tr>
-                    <th>
-                        Месяц/Год
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-               @foreach(var item in Model.vM_Date)
-               {
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                Месяц-Год
+            </th>
+            <th>
+                Затраты в рублях
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach (var obj in Model)
+            {
                     <tr>
-                        <td>@item</td>
+                            <td width="20%">
+                        @obj.vM_Date
+                        </td>
+                            <td width="50%">
+                        @obj.vM_Cost
+                        </td>
                     </tr>
-               }
-           </tbody>
-        </table>
-    </td>
-
-    <td>
-        <table class="table table-bordered table-striped" style="width:auto">
-            <thead>
-                <tr>
-                    <th>
-                        Затраты
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-               @foreach(var item in Model.vM_Cost)
-               {
-                    <tr>
-                        <td>@item</td>
-                    </tr>
-               }
-           </tbody>
-        </table>
-    </td>
-  </tr>
+            }
+    </tbody>
 </table>
+</div>

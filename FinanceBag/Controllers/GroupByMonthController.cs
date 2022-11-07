@@ -1,8 +1,6 @@
-﻿using FinanceBag.Models;
-using FinanceBag.Repositories;
+﻿using FinanceBag.Repositories;
 using FinanceBag.Services;
 using FinanceBag.ViewModel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinanceBag.Controllers
@@ -10,9 +8,9 @@ namespace FinanceBag.Controllers
     public class GroupByMonthController : Controller
     {
         private readonly IGroupRepository _repositoryGroup;
-        private readonly IGroupByRequestHandlerService<GroupByNameViewModel> _groupByRequestHandler;
+        private readonly IGroupByRequestHandlerService<List<GroupByMonthViewModel>> _groupByRequestHandler;
 
-        public GroupByMonthController(IGroupRepository repositoryGroup, IGroupByRequestHandlerService<GroupByNameViewModel> groupByRequestHandler)
+        public GroupByMonthController(IGroupRepository repositoryGroup, IGroupByRequestHandlerService<List<GroupByMonthViewModel>> groupByRequestHandler)
         {
             _repositoryGroup = repositoryGroup;
             _groupByRequestHandler = groupByRequestHandler;
@@ -21,9 +19,11 @@ namespace FinanceBag.Controllers
         {
             var objGroupByMonth = await _repositoryGroup.GroupByMonth();
 
-            GroupByNameViewModel groupByNameViewModel = new GroupByNameViewModel();
-            groupByNameViewModel = await _groupByRequestHandler.ExportToVM(objGroupByMonth);
-            return View(groupByNameViewModel);
+            List<GroupByMonthViewModel> listGroupByMonthViewModels = new List<GroupByMonthViewModel>();
+            listGroupByMonthViewModels = await _groupByRequestHandler.ExportToVM(objGroupByMonth);
+
+            return View(listGroupByMonthViewModels);
+            
         }
     }
 }
