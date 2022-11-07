@@ -24,6 +24,7 @@ builder.Services.AddTransient<IGetLastPriceService<AnaliticsViewModel>, GetLastP
 builder.Services.AddTransient<ICalculateService<AnaliticsViewModel>, CalculateService>();
 builder.Services.AddScoped<IGroupRepository, DealRepository>();
 builder.Services.AddTransient<IGroupByRequestHandlerService<List<GroupByMonthViewModel>>, GroupByRequestHandlerService>();
+builder.Services.AddScoped<IFilterRepository<Deal>, DealRepository>();
 
 
 var app = builder.Build();

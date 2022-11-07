@@ -10,11 +10,14 @@ namespace FinanceBag.Controllers
     {
         private readonly IBaseRepository<Active, string> _activeRepository;
         private readonly IBaseRepository<Deal, int> _dealRepository;
+        private readonly IFilterRepository<Deal> _filterRepository;
 
-        public DealController(IBaseRepository<Active, string> activeRepository, IBaseRepository<Deal, int> dealRepository)
+        public DealController(IBaseRepository<Active, string> activeRepository, IBaseRepository<Deal, int> dealRepository,
+            IFilterRepository<Deal> filterRepository)
         {
             _activeRepository = activeRepository;
             _dealRepository = dealRepository;
+            _filterRepository = filterRepository;
         }
 
         private async void ActivesList()
@@ -143,7 +146,7 @@ namespace FinanceBag.Controllers
         [HttpGet]
         public async Task<IActionResult> FilterByISIN(string search)
         {
-            IEnumerable<Deal> objDeal = await _dealRepository.GetAll();
+            IEnumerable<Deal> objDeal = await _filterRepository.ByISIN(search);
             return View();
         }
     }
