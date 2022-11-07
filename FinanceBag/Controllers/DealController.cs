@@ -138,5 +138,13 @@ namespace FinanceBag.Controllers
             TempData["success"] = "Запись удалена";
             return RedirectToAction("Index");
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> FilterByISIN(string search)
+        {
+            IEnumerable<Deal> objDeal = await _dealRepository.GetAll();
+            return View();
+        }
     }
 }
