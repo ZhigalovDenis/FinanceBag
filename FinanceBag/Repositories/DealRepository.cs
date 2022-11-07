@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace FinanceBag.Repositories
 {
-    public class DealRepository : IBaseRepository<Deal, int>, ISelectRepository, IGroupRepository
+    public class DealRepository : IBaseRepository<Deal, int>, ISelectRepository, IGroupRepository, IFilterRepository<Deal>
     {
         private readonly ApplicationDbContext _db;
         public DealRepository(ApplicationDbContext db)
@@ -74,6 +74,13 @@ namespace FinanceBag.Repositories
                 Date = x.Key.Month.ToString() + '-'+ x.Key.Year.ToString(),
                 Cost =  x.Sum(x=>x.Sum)
             }).OrderBy(x => x.Cost).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Deal>> ByISIN(string search)
+        {
+          //  return await _db.Deals.Where(x => x.ISIN_id == search).ToListAsync();
+           // var users = db.Users.Where(p => EF.Functions.Like(p.Name, "%Tom%"));
+            return await _db.Deals.Where(x => EF.Functions.Like(x.ISIN_id, "%" + search + "%")).ToListAsync();
         }
     }
 }
