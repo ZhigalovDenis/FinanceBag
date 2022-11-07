@@ -6,11 +6,13 @@
 <h1>Таблица <Сделка></h1>
 <h6>Кол-во записей в таблице : @Model.Count()</h6>
 
-<form method="get" action="@Url.Action("MyAction", "MyController")">
+<br />
+<form method="get" action="@Url.Action("Index", "Deal")">
 <label for="search">Поиск по ISIN</label>
 <input type="text" name="search" id="search" />
 <button type="submit">Начать поиск</button>
 </form>
+
 
 <div class="container p-3">
     <div class="row pt-4">

@@ -25,10 +25,17 @@ namespace FinanceBag.Controllers
             IEnumerable<Active> objActiv = await _activeRepository.GetAll();
             ViewBag.ISIN_id = objActiv.Select(s => s.ISIN_id);
         }
-        public async Task<IActionResult> Index()
+
+        [HttpGet]
+        public async Task<IActionResult> Index(string search)
         {
-            IEnumerable<Deal> objDeal = await _dealRepository.GetAll();
-            return View(objDeal);
+            if(search == null)
+            {
+                IEnumerable<Deal> objDeal = await _dealRepository.GetAll();
+                return View(objDeal);
+            }
+            IEnumerable<Deal> objDeal1 = await _filterRepository.ByISIN(search);
+            return View(objDeal1);
         }
 
         //GET
@@ -142,12 +149,5 @@ namespace FinanceBag.Controllers
             return RedirectToAction("Index");
         }
 
-
-        [HttpGet]
-        public async Task<IActionResult> FilterByISIN(string search)
-        {
-            IEnumerable<Deal> objDeal = await _filterRepository.ByISIN(search);
-            return View();
-        }
     }
 }
