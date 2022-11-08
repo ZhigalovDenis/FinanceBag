@@ -1,6 +1,7 @@
 ﻿using FinanceBag.Data;
 using FinanceBag.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Immutable;
 using System.Xml;
 
 namespace FinanceBag.Repositories
@@ -76,11 +77,11 @@ namespace FinanceBag.Repositories
             }).OrderBy(x => x.Cost).ToListAsync();
         }
 
-        public async Task<IEnumerable<Deal>> ByISIN(string search)
+        public async Task<IEnumerable<Deal>> FilterBy(string value0, string value1)
         {
-          //  return await _db.Deals.Where(x => x.ISIN_id == search).ToListAsync();
-           // var users = db.Users.Where(p => EF.Functions.Like(p.Name, "%Tom%"));
-            return await _db.Deals.Where(x => EF.Functions.Like(x.ISIN_id, "%" + search + "%")).ToListAsync();
+            return await _db.Deals.Where(x => EF.Functions.Like(x.ISIN_id, "%" + value0 + "%"))
+                                  .Where(x => EF.Functions.Like(x.DT.ToString(), "%" + value1 + "%"))
+                                  .ToListAsync();
         }
     }
 }

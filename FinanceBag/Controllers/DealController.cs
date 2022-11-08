@@ -27,14 +27,14 @@ namespace FinanceBag.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(string search)
+        public async Task<IActionResult> Index(string value0, string value1)
         {
-            if(search == null)
+            if(value0 == null && value1 == null)
             {
                 IEnumerable<Deal> objDeal = await _dealRepository.GetAll();
                 return View(objDeal);
             }
-            IEnumerable<Deal> objDeal1 = await _filterRepository.ByISIN(search);
+            IEnumerable<Deal> objDeal1 = await _filterRepository.FilterBy(value0, value1);
             return View(objDeal1);
         }
 

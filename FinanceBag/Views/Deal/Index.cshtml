@@ -8,11 +8,26 @@
 
 <br />
 <form method="get" action="@Url.Action("Index", "Deal")">
-<label for="search">Поиск по ISIN</label>
-<input type="text" name="search" id="search" />
+<label for="value0">Поиск по ISIN</label>
+<input type="text" name="value0" id="value0" />
 <button type="submit">Начать поиск</button>
 </form>
 
+<br />
+<label for="value1">Формат поиска "2021-09-29 19:16:56"</label>
+<form method="get" action="@Url.Action("Index", "Deal")">
+<label for="value1">Поиск по Дате</label>
+<input type="text" name="value1" id="value1" />
+<button type="submit">Начать поиск</button>
+</form>
+
+<br />
+<form method="get" action="@Url.Action("Index", "Deal")">
+<label for="value0">Поиск по ISIN + Дата</label>
+<input type="text" name="value0" id="value0" />
+<input type="text" name="value1" id="value1" />
+<button type="submit">Начать поиск</button>
+</form>
 
 <div class="container p-3">
     <div class="row pt-4">
