@@ -11,30 +11,15 @@ namespace FinanceBag.Controllers
         private readonly IBaseRepository<Active, string> _activeRepository;
         private readonly IBaseRepository<Deal, int> _dealRepository;
         private readonly IFilterRepository<Deal> _filterRepository;
-        private readonly IViewBag _viewBag;
+        private readonly IViewBag _viewBagRepository;
 
         public DealController(IBaseRepository<Active, string> activeRepository, IBaseRepository<Deal, int> dealRepository,
-            IFilterRepository<Deal> filterRepository)
+            IFilterRepository<Deal> filterRepository, IViewBag viewBagRepository)
         {
             _activeRepository = activeRepository;
             _dealRepository = dealRepository;
             _filterRepository = filterRepository;
-        }
-
-        //private async void ActivesList()
-        //{
-        //    IEnumerable<Active> objActiv = await _activeRepository.GetAll();
-        //    ViewBag.ISIN_id = objActiv.Select(s => s.ISIN_id);
-        //}
-
-        private async Task<dynamic> ActivesList()
-        {
-            IEnumerable<Active> objActiv = await _activeRepository.GetAll();
-            //ViewBag.ISIN_id = objActiv.Select(s => s.ISIN_id);
-            return await Task.Run(() =>
-            {
-                return objActiv.Select(s => s.ISIN_id);
-            });           
+            _viewBagRepository = viewBagRepository; 
         }
 
         [HttpGet]
@@ -52,7 +37,7 @@ namespace FinanceBag.Controllers
         //GET
         public async Task<IActionResult> Create()
         {
-            ViewBag.ISIN_id = await ActivesList();
+            ViewBag.ISIN_id = await _viewBagRepository.GetListToViewBag();
             return View();
         }
 
@@ -82,7 +67,7 @@ namespace FinanceBag.Controllers
             else
             {
                 ModelState.AddModelError("ISIN_id", $"Запись {obj.ISIN_id} не существует");
-                ActivesList();
+                ViewBag.ISIN_id = await _viewBagRepository.GetListToViewBag();
                 return View();
             }
         }
@@ -90,7 +75,7 @@ namespace FinanceBag.Controllers
         //GET
         public async Task<IActionResult> Edit(int? id)
         {
-            ActivesList();
+            ViewBag.ISIN_id = await _viewBagRepository.GetListToViewBag();
             if (id == null || id == 0)
             {
                 return NotFound();
@@ -129,7 +114,7 @@ namespace FinanceBag.Controllers
             else
             {
                 ModelState.AddModelError("ISIN_id", $"Запись {obj.ISIN_id} не существует");
-                ActivesList();
+                ViewBag.ISIN_id = await _viewBagRepository.GetListToViewBag();
                 return View();
             }
         }

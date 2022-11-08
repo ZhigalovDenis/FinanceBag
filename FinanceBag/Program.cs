@@ -25,6 +25,7 @@ builder.Services.AddTransient<ICalculateService<AnaliticsViewModel>, CalculateSe
 builder.Services.AddScoped<IGroupRepository, DealRepository>();
 builder.Services.AddTransient<IGroupByRequestHandlerService<List<GroupByMonthViewModel>>, GroupByRequestHandlerService>();
 builder.Services.AddScoped<IFilterRepository<Deal>, DealRepository>();
+builder.Services.AddScoped <IViewBag, ActiveRepository>();
 
 
 var app = builder.Build();
