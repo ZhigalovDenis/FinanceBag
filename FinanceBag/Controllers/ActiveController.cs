@@ -1,8 +1,7 @@
-﻿using FinanceBag.Data;
-using FinanceBag.Models;
+﻿using FinanceBag.Models;
 using FinanceBag.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace FinanceBag.Controllers
 {
@@ -17,11 +16,6 @@ namespace FinanceBag.Controllers
             _typeOfActiveRepository = typeOfActiveRepository;
         }
 
-        private async void TypeOfActivesList()
-        {
-            IEnumerable<TypeOfActive> objTypeOfActiv = await _typeOfActiveRepository.GetAll();
-            ViewBag.Type = objTypeOfActiv;
-        }
         public async Task<IActionResult> Index()
         {
             IEnumerable<Active> objActiv = await _activeRepository.GetAll();
@@ -29,9 +23,9 @@ namespace FinanceBag.Controllers
         }
 
         //GET
-        public  IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            TypeOfActivesList();
+            ViewBag.Type = await _typeOfActiveRepository.GetAll();
             return View();
         }
 
@@ -60,7 +54,7 @@ namespace FinanceBag.Controllers
             else
             {
                 ModelState.AddModelError("ISIN_id", $"Запись {obj.ISIN_id} уже существет");
-                TypeOfActivesList();
+                ViewBag.Type = await _typeOfActiveRepository.GetAll();
                 return View();
             }
         }
@@ -68,7 +62,7 @@ namespace FinanceBag.Controllers
         //GET
         public async Task<IActionResult> Edit(string? id)
         {
-            TypeOfActivesList();
+            ViewBag.Type = await _typeOfActiveRepository.GetAll();
             if (id == null)
             {
                 return NotFound();
@@ -95,7 +89,7 @@ namespace FinanceBag.Controllers
         //GET
         public async Task<IActionResult> Delete(string? id)
         {
-            TypeOfActivesList();
+            ViewBag.Type = await _typeOfActiveRepository.GetAll();
             if (id == null)
             {
                 return NotFound();
