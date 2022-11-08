@@ -20,10 +20,20 @@ namespace FinanceBag.Controllers
             _filterRepository = filterRepository;
         }
 
-        private async void ActivesList()
+        //private async void ActivesList()
+        //{
+        //    IEnumerable<Active> objActiv = await _activeRepository.GetAll();
+        //    ViewBag.ISIN_id = objActiv.Select(s => s.ISIN_id);
+        //}
+
+        private async Task<dynamic> ActivesList()
         {
             IEnumerable<Active> objActiv = await _activeRepository.GetAll();
-            ViewBag.ISIN_id = objActiv.Select(s => s.ISIN_id);
+            //ViewBag.ISIN_id = objActiv.Select(s => s.ISIN_id);
+            return await Task.Run(() =>
+            {
+                return objActiv.Select(s => s.ISIN_id);
+            });           
         }
 
         [HttpGet]
@@ -39,9 +49,9 @@ namespace FinanceBag.Controllers
         }
 
         //GET
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ActivesList();
+            ViewBag.ISIN_id = await ActivesList();
             return View();
         }
 
