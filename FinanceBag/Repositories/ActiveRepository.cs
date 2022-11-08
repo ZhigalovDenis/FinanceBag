@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace FinanceBag.Repositories
 
 {
-    public class ActiveRepository : IBaseRepository<Active, string>
+    public class ActiveRepository : IBaseRepository<Active, string>, IViewBag
     {
         private readonly ApplicationDbContext _db;
         public ActiveRepository(ApplicationDbContext db)
@@ -37,6 +37,11 @@ namespace FinanceBag.Repositories
         public async Task<Active> GetById(string id)
         {
             return await _db.Actives.FindAsync(id);
+        }
+
+        public async Task<IEnumerable<dynamic>> GetListToViewBag()
+        {
+            return await _db.Actives.Select(x => x.ISIN_id).ToListAsync();
         }
 
         public async Task<Active> Insert(Active entity)

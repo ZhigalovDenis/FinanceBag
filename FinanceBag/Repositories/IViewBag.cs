@@ -2,6 +2,6 @@
 {
     public interface IViewBag
     {
-        Task<IEnumerable<dynamic>> GetList();
+        Task<IEnumerable<dynamic>> GetListToViewBag();
     }
 }

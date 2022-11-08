@@ -11,6 +11,7 @@ namespace FinanceBag.Controllers
         private readonly IBaseRepository<Active, string> _activeRepository;
         private readonly IBaseRepository<Deal, int> _dealRepository;
         private readonly IFilterRepository<Deal> _filterRepository;
+        private readonly IViewBag _viewBag;
 
         public DealController(IBaseRepository<Active, string> activeRepository, IBaseRepository<Deal, int> dealRepository,
             IFilterRepository<Deal> filterRepository)
